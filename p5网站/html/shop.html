@@ -17,252 +17,57 @@
         </nav>
     </header>
 
-    <!-- <div class="category-bar">
-        <button class="category-btn active" data-category="recommended">推荐</button>
-        <button class="category-btn" data-category="tshirts">T-shirts</button>
-        <button class="category-btn" data-category="hoodies">Hoodies</button>
-        <button class="category-btn" data-category="blankets">Blankets</button>
-        <button class="category-btn" data-category="pillows">Throw Pillows</button>
-    </div> -->
-
     <main class="shop-container">
+        <!-- 商品会通过 JS 动态生成 -->
+    </main>
 
-        <!-- 推荐类 -->
-        <div class="category-container" data-category="recommended">
-            <h2 class="category-title">推荐</h2>
-            <div class="product-list">
-                <div class="product-card" data-category="recommended">
-                    <a href="detail.html?id=1">
-                        <img src="../img/wall-paint.jpg" alt="墙面画">
-                        <h3 class="product-title">墙面画</h3>
-                    </a>
-                    <p class="product-price">¥300</p>
-                    <button class="btn-add">加入购物车</button>
-                </div>
-
-                <div class="product-card" data-category="recommended">
-                    <a href="detail.html?id=2">
-                        <img src="../img/Mug.jpg" alt="Mug">
-                        <h3 class="product-title">马克杯</h3>
-                    </a>
-                    <p class="product-price">¥150</p>
-                    <button class="btn-add">加入购物车</button>
-                </div>
-
-                <div class="product-card" data-category="recommended">
-                    <a href="detail.html?id=3">
-                        <img src="../img/Mouse-Pad.jpg" alt="鼠标垫">
-                        <h3 class="product-title">鼠标垫</h3>
-                    </a>
-                    <p class="product-price">¥50</p>
-                    <button class="btn-add">加入购物车</button>
-                </div>
-
-                <div class="product-card" data-category="recommended">
-                    <a href="detail.html?id=4">
-                        <img src="../img/Persona-Poster.jpg" alt="Persona 5 海报">
-                        <h3 class="product-title">Persona 5 海报</h3>
-                    </a>
-                    <p class="product-price">¥48</p>
-                    <button class="btn-add">加入购物车</button>
-                </div>
-
-                <div class="product-card" data-category="recommended">
-                    <a href="detail.html?id=5">
-                        <img src="../img/SUMIREYOSHIZAWA-Backpack.jpg" alt="背包">
-                        <h3 class="product-title">背包</h3>
-                    </a>
-                    <p class="product-price">¥98</p>
-                    <button class="btn-add">加入购物车</button>
-                </div>
-
-                <div class="product-card" data-category="recommended">
-                    <a href="detail.html?id=6">
-                        <img src="../img/Joker-Model.webp" alt="Joker 模型">
-                        <h3 class="product-title">Joker 模型</h3>
-                    </a>
-                    <p class="product-price">¥588</p>
-                    <button class="btn-add">加入购物车</button>
-                </div>
-
-                <div class="product-card" data-category="recommended">
-                    <a href="detail.html?id=7">
-                        <img src="../img/Mona-Plush.webp" alt="Mona Plush">
-                        <h3 class="product-title">Mona Plush</h3>
-                    </a>
-                    <p class="product-price">¥128</p>
-                    <button class="btn-add">加入购物车</button>
-                </div>
-
-                <div class="product-card" data-category="recommended">
-                    <a href="detail.html?id=8">
-                        <img src="../img/Joker-Cap.jpg" alt="Joker Cap">
-                        <h3 class="product-title">Joker Cap</h3>
-                    </a>
-                    <p class="product-price">¥38</p>
-                    <button class="btn-add">加入购物车</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- T-shirts 类 -->
-        <div class="category-container" data-category="tshirts">
-            <h2 class="category-title">T恤</h2>
-            <div class="product-list">
-                <div class="product-card" data-category="tshirts">
-                    <a href="detail.html?id=9">
-                        <img src="../img/mona-T-Shirt.jpg" alt="Mona T-Shirt">
-                        <h3 class="product-title">Mona T-Shirt</h3>
-                    </a>
-                    <p class="product-price">¥100</p>
-                    <button class="btn-add">加入购物车</button>
-                </div>
-
-                <div class="product-card" data-category="tshirts">
-                    <a href="detail.html?id=10">
-                        <img src="../img/jack-T-Shirt.jpg" alt="Jack T-Shirt">
-                        <h3 class="product-title">Jack T-Shirt</h3>
-                    </a>
-                    <p class="product-price">¥100</p>
-                    <button class="btn-add">加入购物车</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Hoodies 类 -->
-        <div class="category-container" data-category="hoodies">
-            <h2 class="category-title">卫衣</h2>
-            <div class="product-list">
-
-                <div class="product-card" data-category="hoodies">
-                    <a href="detail.html?id=11">
-                        <img src="../img/Persona5-Hoodie.jpg" alt="Persona 5 Hoodie">
-                        <h3 class="product-title">Persona 5 Hoodie</h3>
-                    </a>
-                    <p class="product-price">¥98</p>
-                    <button class="btn-add">加入购物车</button>
-                </div>
-
-                <div class="product-card" data-category="hoodies">
-                    <a href="detail.html?id=12">
-                        <img src="../img/Joker-Hoodie.jpg" alt="Joker Hoodie">
-                        <h3 class="product-title">Joker Hoodie</h3>
-                    </a>
-                    <p class="product-price">¥98</p>
-                    <button class="btn-add">加入购物车</button>
-                </div>
-
-                <div class="product-card" data-category="hoodies">
-                    <a href="detail.html?id=13">
-                        <img src="../img/Queen-Hoodie.jpg" alt="Queen Hoodie">
-                        <h3 class="product-title">Queen Hoodie</h3>
-                    </a>
-                    <p class="product-price">¥98</p>
-                    <button class="btn-add">加入购物车</button>
-                </div>
-
-                <div class="product-card" data-category="hoodies">
-                    <a href="detail.html?id=14">
-                        <img src="../img/Makoto-Hoodie.jpg" alt="Makoto Hoodie">
-                        <h3 class="product-title">Makoto Hoodie</h3>
-                    </a>
-                    <p class="product-price">¥98</p>
-                    <button class="btn-add">加入购物车</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Blankets 类 -->
-        <div class="category-container" data-category="blankets">
-            <h2 class="category-title">毛毯</h2>
-            <div class="product-list">
-                <div class="product-card" data-category="blankets">
-                    <a href="detail.html?id=15">
-                        <img src="../img/Star-Blanket.jpg" alt="Star Blanket">
-                        <h3 class="product-title">Star Blanket</h3>
-                    </a>
-                    <p class="product-price">¥128</p>
-                    <button class="btn-add">加入购物车</button>
-                </div>
-
-                <div class="product-card" data-category="blankets">
-                    <a href="detail.html?id=16">
-                        <img src="../img/ThePhantomThieves-Blanket.jpg" alt="The Phantom Thieves Blanket">
-                        <h3 class="product-title">The Phantom Thieves Blanket</h3>
-                    </a>
-                    <p class="product-price">¥128</p>
-                    <button class="btn-add">加入购物车</button>
-                </div>
-
-                <div class="product-card" data-category="blankets">
-                    <a href="detail.html?id=17">
-                        <img src="../img/Joker_Blanket.jpg" alt="Joker Blanket">
-                        <h3 class="product-title">Joker Blanket</h3>
-                    </a>
-                    <p class="product-price">¥128</p>
-                    <button class="btn-add">加入购物车</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Pillows 类 -->
-        <div class="category-container" data-category="pillows">
-            <h2 class="category-title">抱枕</h2>
-            <div class="product-list">
-
-                <div class="product-card" data-category="pillows">
-                    <a href="detail.html?id=18">
-                        <img src="../img/Star-Pillow.jpg" alt="Star Pillow">
-                        <h3 class="product-title">Star Pillow</h3>
-                    </a>
-                    <p class="product-price">¥78</p>
-                    <button class="btn-add">加入购物车</button>
-                </div>
-
-                <div class="product-card" data-category="pillows">
-                    <a href="detail.html?id=19">
-                        <img src="../img/Joker-Pillow.jpg" alt="Joker Pillow">
-                        <h3 class="product-title">Joker Pillow</h3>
-                    </a>
-                    <p class="product-price">¥85</p>
-                    <button class="btn-add">加入购物车</button>
-                </div>
-
-                <div class="product-card" data-category="pillows">
-                    <a href="detail.html?id=20">
-                        <img src="../img/Makoto-Pillow.jpg" alt="Makoto Pillow">
-                        <h3 class="product-title">Makoto Pillow</h3>
-                    </a>
-                    <p class="product-price">¥68</p>
-                    <button class="btn-add">加入购物车</button>
-                </div>
-            </div>
-        </div>
-
+   
         <div class="elevate">
             <ul class="elevate-list">
-                <li class="elevate-item" id ="shop-cart">
+                <li class="elevate-item" id="shop-cart">
                     <a href="cart.html" class="cart-icon">
                         🛒
                         <span class="cart-count">0</span>
                     </a>
                 </li>
+                <li class="elevate-item" id="recommended">
+                    <a href="javascript:void(0);">推荐</a>
+                </li>
+                <li class="elevate-item" id="tshirts">
+                    <a href="javascript:void(0);">T恤</a>
+                </li>
+                <li class="elevate-item" id="hoodies">
+                    <a href="javascript:void(0);">卫衣</a>
+                </li>
+                <li class="elevate-item" id="blankets">
+                    <a href="javascript:void(0);">毛毯</a>
+                </li>
+                <li class="elevate-item" id="pillows">
+                    <a href="javascript:void(0);">抱枕</a>
+                </li>
                 <li class="elevate-item" id="home">
-                    <a href="home.html">我的</a>
+                    <a href="javascript:void(0);">我的</a>
                 </li>
                 <li class="elevate-item" id="back-to-top">
                     <a href="javascript:void(0);" class="back-to-top">回顶部</a>
                 </li>
             </ul>
         </div>
-    </main>
+        <div style="height: 200px;"></div>
 
 
+    <footer>
+        <div class="footer-container">
+            <div class="footer-item"><a href="index.html">首页</a></div>
+            <div class="footer-item"><a href="shop.html">商店</a></div>
+            <div class="footer-item"><a href="cart.html">购物车</a></div>
+            <div class="footer-item"><a href="about.html">关于我们</a></div>
+        </div>
+    </footer>
 
     <script src="../js/main.js"></script>
     <script src="../js/shop.js"></script>
     <script src="../js/cart.js"></script>
     <script src="../js/background.js"></script>
 </body>
-
 </html>

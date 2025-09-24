@@ -1,8 +1,8 @@
-// main.js
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.querySelector('.shop-container');
   const cartIcon = document.querySelector('.cart-icon');
 
+  if (!container) return;
   container.addEventListener('click', e => {
     const btn = e.target.closest('.btn-add');
     if (!btn) return;
