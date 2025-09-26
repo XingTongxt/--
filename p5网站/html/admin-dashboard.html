@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理系统</title>
+    <link rel="stylesheet" href="../css/admin-dashboard.css">
+</head>
+
+<body>
+    <h2>欢迎您，管理员</h2>
+    <p id="admin-info">加载中...</p>
+
+    <div id="menu">
+        <h3>功能菜单</h3>
+        <div class="menu-item" onclick="goTo('manage-users.html')">用户管理</div>
+        <div class="menu-item" onclick="goTo('manage-items.html')">物品管理</div>
+        <div class="menu-item" onclick="goTo('view-logs.html')">日志查看</div>
+    </div>
+
+    <button onclick="logout()">退出登录</button>
+
+    <script src="../js/admin-dashboard.js"></script>
+</body>
+
+</html>

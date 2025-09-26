@@ -14,6 +14,12 @@
         <h1 class="shop-title">商城</h1>
         <nav class="shop-nav">
             <a href="index.html">首页</a>
+            <a href="cart.html" class="cart-icon">
+                🛒
+                <span class="cart-count">0</span>
+            </a>
+            <a href="user.html">我的</a>
+
         </nav>
     </header>
 
@@ -21,39 +27,38 @@
         <!-- 商品会通过 JS 动态生成 -->
     </main>
 
-   
-        <div class="elevate">
-            <ul class="elevate-list">
-                <li class="elevate-item" id="shop-cart">
-                    <a href="cart.html" class="cart-icon">
-                        🛒
-                        <span class="cart-count">0</span>
-                    </a>
-                </li>
-                <li class="elevate-item" id="recommended">
-                    <a href="javascript:void(0);">推荐</a>
-                </li>
-                <li class="elevate-item" id="tshirts">
-                    <a href="javascript:void(0);">T恤</a>
-                </li>
-                <li class="elevate-item" id="hoodies">
-                    <a href="javascript:void(0);">卫衣</a>
-                </li>
-                <li class="elevate-item" id="blankets">
-                    <a href="javascript:void(0);">毛毯</a>
-                </li>
-                <li class="elevate-item" id="pillows">
-                    <a href="javascript:void(0);">抱枕</a>
-                </li>
-                <li class="elevate-item" id="home">
-                    <a href="javascript:void(0);">我的</a>
-                </li>
-                <li class="elevate-item" id="back-to-top">
-                    <a href="javascript:void(0);" class="back-to-top">回顶部</a>
-                </li>
-            </ul>
-        </div>
-        <div style="height: 200px;"></div>
+    <div class="elevate">
+        <ul class="elevate-list">
+            <li class="elevate-item" id="shop-cart">
+                <a href="cart.html" class="cart-icon">
+                    🛒
+                    <span class="cart-count">0</span>
+                </a>
+            </li>
+            <li class="elevate-item" id="recommended">
+                <a href="javascript:void(0);">推荐</a>
+            </li>
+            <li class="elevate-item" id="tshirts">
+                <a href="javascript:void(0);">T恤</a>
+            </li>
+            <li class="elevate-item" id="hoodies">
+                <a href="javascript:void(0);">卫衣</a>
+            </li>
+            <li class="elevate-item" id="blankets">
+                <a href="javascript:void(0);">毛毯</a>
+            </li>
+            <li class="elevate-item" id="pillows">
+                <a href="javascript:void(0);">抱枕</a>
+            </li>
+            <li class="elevate-item" id="home">
+                <a href="user.html">我的</a>
+            </li>
+            <li class="elevate-item" id="back-to-top">
+                <a href="javascript:void(0);" class="back-to-top">回顶部</a>
+            </li>
+        </ul>
+    </div>
+    <div style="height: 200px;"></div>
 
 
     <footer>
@@ -70,4 +75,5 @@
     <script src="../js/cart.js"></script>
     <script src="../js/background.js"></script>
 </body>
+
 </html>
