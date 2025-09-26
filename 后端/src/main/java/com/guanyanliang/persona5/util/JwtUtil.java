@@ -10,35 +10,40 @@ import java.util.Date;
 
 public class JwtUtil {
 
-    // 自动生成一个足够安全的 key
-    private static final SecretKey KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    // 固定密钥（与生成 token 时一致）
+    private static final String SECRET = "your_super_secret_key_which_should_be_long_enough";
+    private static final SecretKey KEY = Keys.hmacShaKeyFor(SECRET.getBytes());
+    private static final long EXPIRATION = 24 * 60 * 60 * 1000; // 1天
 
-    private static final long EXPIRATION = 24 * 60 * 60 * 1000; // 1 天
-
-    // 生成 token
-    public static String generateToken(String username) {
+    // 生成 token（用户名 + 角色）
+    public static String generateToken(String username, String role) {
         return Jwts.builder()
                 .setSubject(username)
+                .claim("role", role)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
                 .signWith(KEY)
                 .compact();
     }
 
-    // 解析 token
-    public static String parseToken(String token) {
-        Claims claims = Jwts.parserBuilder()
+    // 解析 token 获取 Claims
+    private static Claims parseClaims(String token) {
+        return Jwts.parserBuilder()
                 .setSigningKey(KEY)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-        return claims.getSubject();
     }
 
-    // 如果需要，可提供 key 的 Base64 字符串，用于持久化
-    public static String getKeyBase64() {
-        return java.util.Base64.getEncoder().encodeToString(KEY.getEncoded());
+    // 获取用户名
+    public static String getUsername(String token) {
+        return parseClaims(token).getSubject();
     }
 
+    // 获取角色
+    public static String getRole(String token) {
+        Object role = parseClaims(token).get("role");
+        return role != null ? role.toString() : null;
+    }
 
 }

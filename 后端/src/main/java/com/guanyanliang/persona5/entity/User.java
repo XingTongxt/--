@@ -19,14 +19,17 @@ public class User {
     @Column(unique = true)
     private String email; // 邮箱，可选
 
-    // 构造方法
-    public User() {
-    }
+    @Column(nullable = false)
+    private String role = "USER"; // 角色，默认普通用户
 
-    public User(String username, String password, String email) {
+    // 构造方法
+    public User() {}
+
+    public User(String username, String password, String email, String role) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.role = role;
     }
 
     // Getter 和 Setter
@@ -60,5 +63,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
