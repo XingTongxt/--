@@ -15,8 +15,8 @@ document.getElementById('login-btn').addEventListener('click', async () => {
     if (res.ok) {
         localStorage.setItem('token', data.token);
         // sessionStorage.setItem('username', data.username);
-        alert(data.message);
-        window.location.href = 'user.html';
+        
+        window.location.href = 'shop.html';
     } else {
         alert(data.error);
     }

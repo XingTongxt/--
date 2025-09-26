@@ -1,27 +1,28 @@
-body {
+body, html {
     font-family: "Arial Black", sans-serif;
-    background: #000; /* 黑色背景 */
     margin: 0;
     padding: 0;
     color: #fff;
+    background: url('../img/1.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
 }
 
 header {
-    background: linear-gradient(135deg, #e60012, #b3000f); /* P5标志性的红色 */
-    color: white;
-    padding: 20px;
-    text-align: center;
-    font-size: 26px;
-    text-transform: uppercase;
-    font-weight: bold;
-    letter-spacing: 2px;
-    text-shadow: 2px 2px #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: red;
+    padding: 15px 30px;
+    border-bottom: 3px solid white;
+    box-shadow: 5px 5px 0 black;
 }
 
 .container {
     max-width: 800px;
-    margin: 40px auto;
-    background: #111; /* 深灰黑背景 */
+    margin: 80px auto;
+    background: #111; 
     padding: 25px;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(255, 0, 0, 0.5);
