@@ -13,43 +13,43 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    // 注册用户
+    // 注册方法
     public String register(User user) {
         // 检查用户名是否已存在
-        if (userRepository.existsByUsername(user.getUsername())) {
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
             return "用户名已存在";
         }
+
+        // 设置默认角色为 USER
+        user.setRole("USER");
+
         // 保存用户
         userRepository.save(user);
-        return "success";
+        return "注册成功";
     }
 
-    // 登录用户
+    // 登录方法
     public User login(String username, String password) {
-        return userRepository.findByUsername(username)
-                .filter(u -> u.getPassword().equals(password))
-                .orElse(null);
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+        if (optionalUser.isPresent() && optionalUser.get().getPassword().equals(password)) {
+            return optionalUser.get();
+        }
+        return null;
     }
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-    // 根据用户名获取用户
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
     // 修改密码
     public boolean changePassword(String username, String newPassword) {
-        Optional<User> userOpt = userRepository.findByUsername(username);
-        if (userOpt.isPresent()) {
-            User user = userOpt.get();
-            user.setPassword(newPassword); // ⚠️生产环境要加密
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setPassword(newPassword);
             userRepository.save(user);
             return true;
         }
         return false;
     }
-
 }
