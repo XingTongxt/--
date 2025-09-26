@@ -1,6 +1,5 @@
 package com.guanyanliang.persona5.controller;
 
-import com.guanyanliang.persona5.entity.Admin;
 import com.guanyanliang.persona5.service.AdminService;
 import com.guanyanliang.persona5.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
