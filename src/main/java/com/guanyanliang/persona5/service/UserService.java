@@ -5,6 +5,8 @@ import com.guanyanliang.persona5.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -29,5 +31,25 @@ public class UserService {
                 .orElse(null);
     }
 
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    // 根据用户名获取用户
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    // 修改密码
+    public boolean changePassword(String username, String newPassword) {
+        Optional<User> userOpt = userRepository.findByUsername(username);
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            user.setPassword(newPassword); // ⚠️生产环境要加密
+            userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
 
 }
