@@ -4,20 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8567d5c2-0c11-4c28-a18e-37e12f6d6c85" name="更改" comment="01">
-      <change afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/entity/Log.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/repository/LogRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/CartController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/entity/Admin.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/interceptor/JwtInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/interceptor/JwtInterceptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/repository/AdminRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/service/AdminService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/service/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/service/CartService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/service/UserService.java" afterDir="false" />
-    </list>
+    <list default="true" id="8567d5c2-0c11-4c28-a18e-37e12f6d6c85" name="更改" comment="refactor(admin): 重构管理员功能并整合用户服务&#10;&#10;- 移除独立的 Admin 实体及相关仓库和服务&#10;- 管理员逻辑合并至 UserController 和 UserService&#10;- 新增 Log 实体用于记录操作日志- 实现管理员登录、信息获取接口&#10;- 添加用户管理功能：查询、修改角色、删除用户&#10;- 添加物品管理功能：查询、新增、修改、删除商品&#10;- 添加日志管理功能：按类型和用户查询日志&#10;- 更新 JWT 拦截器以支持新的权限校验逻辑&#10;- 购物车服务中增强删除商品时的异常处理&#10;- 用户注册、登录、修改密码、登出时记录操作日志" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -138,7 +125,7 @@
       <workItem from="1758860596027" duration="2392000" />
       <workItem from="1758863296630" duration="192000" />
       <workItem from="1758866207460" duration="27960000" />
-      <workItem from="1759125761004" duration="7157000" />
+      <workItem from="1759125761004" duration="7840000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <option name="closed" value="true" />
@@ -284,7 +271,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758899667616</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="refactor(admin): 重构管理员功能并整合用户服务&#10;&#10;- 移除独立的 Admin 实体及相关仓库和服务&#10;- 管理员逻辑合并至 UserController 和 UserService&#10;- 新增 Log 实体用于记录操作日志- 实现管理员登录、信息获取接口&#10;- 添加用户管理功能：查询、修改角色、删除用户&#10;- 添加物品管理功能：查询、新增、修改、删除商品&#10;- 添加日志管理功能：按类型和用户查询日志&#10;- 更新 JWT 拦截器以支持新的权限校验逻辑&#10;- 购物车服务中增强删除商品时的异常处理&#10;- 用户注册、登录、修改密码、登出时记录操作日志">
+      <option name="closed" value="true" />
+      <created>1759135006214</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1759135006214</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -306,7 +301,8 @@
     <MESSAGE value="0" />
     <MESSAGE value="55" />
     <MESSAGE value="01" />
-    <option name="LAST_COMMIT_MESSAGE" value="01" />
+    <MESSAGE value="refactor(admin): 重构管理员功能并整合用户服务&#10;&#10;- 移除独立的 Admin 实体及相关仓库和服务&#10;- 管理员逻辑合并至 UserController 和 UserService&#10;- 新增 Log 实体用于记录操作日志- 实现管理员登录、信息获取接口&#10;- 添加用户管理功能：查询、修改角色、删除用户&#10;- 添加物品管理功能：查询、新增、修改、删除商品&#10;- 添加日志管理功能：按类型和用户查询日志&#10;- 更新 JWT 拦截器以支持新的权限校验逻辑&#10;- 购物车服务中增强删除商品时的异常处理&#10;- 用户注册、登录、修改密码、登出时记录操作日志" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor(admin): 重构管理员功能并整合用户服务&#10;&#10;- 移除独立的 Admin 实体及相关仓库和服务&#10;- 管理员逻辑合并至 UserController 和 UserService&#10;- 新增 Log 实体用于记录操作日志- 实现管理员登录、信息获取接口&#10;- 添加用户管理功能：查询、修改角色、删除用户&#10;- 添加物品管理功能：查询、新增、修改、删除商品&#10;- 添加日志管理功能：按类型和用户查询日志&#10;- 更新 JWT 拦截器以支持新的权限校验逻辑&#10;- 购物车服务中增强删除商品时的异常处理&#10;- 用户注册、登录、修改密码、登出时记录操作日志" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
