@@ -5,23 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8567d5c2-0c11-4c28-a18e-37e12f6d6c85" name="更改" comment="01">
-      <change afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/config/WebConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/CartController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/dto/CartDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/entity/Cart.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/interceptor/JwtInterceptor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/repository/CartRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/service/CartService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/entity/Log.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/repository/LogRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/后端/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/CartController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/entity/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/entity/Admin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/entity/CartItem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/service/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/service/AdminService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/entity/Admin.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/interceptor/JwtInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/interceptor/JwtInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/repository/AdminRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/service/AdminService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/service/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/service/CartService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/util/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/util/JwtUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +137,8 @@
       <workItem from="1758791886391" duration="8642000" />
       <workItem from="1758860596027" duration="2392000" />
       <workItem from="1758863296630" duration="192000" />
-      <workItem from="1758866207460" duration="26910000" />
+      <workItem from="1758866207460" duration="27960000" />
+      <workItem from="1759125761004" duration="7157000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <option name="closed" value="true" />
@@ -280,7 +276,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758862924316</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="01">
+      <option name="closed" value="true" />
+      <created>1758899667616</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1758899667616</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

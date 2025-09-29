@@ -89,15 +89,17 @@ public class CartController {
 
         try {
             cartService.removeItem(user, productId);
-
-            // 返回最新购物车列表
             List<CartDTO> cartList = cartService.getCartWithProductInfo(user);
             return ResponseEntity.ok(cartList);
+        } catch (RuntimeException e) {
+            // 不存在的商品
+            return ResponseEntity.status(409).body(e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(500).body("删除购物车商品失败");
         }
     }
+
 
     // ===== 工具方法：解析用户 =====
     private User getUserFromAuthHeader(String authHeader) {

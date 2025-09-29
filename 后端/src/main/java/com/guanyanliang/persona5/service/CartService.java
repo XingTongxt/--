@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -67,7 +68,15 @@ public class CartService {
     }
 
     // 删除购物车商品
+    @Transactional
     public void removeItem(User user, Long productId) {
-        cartRepository.deleteByUserAndProductId(user, productId);
+        Optional<Cart> cartOpt = cartRepository.findByUserAndProductId(user, productId);
+        if (cartOpt.isPresent()) {
+            cartRepository.delete(cartOpt.get());
+        } else {
+            // 不存在的商品返回 409
+            throw new RuntimeException("购物车项不存在或已被删除");
+        }
     }
+
 }
