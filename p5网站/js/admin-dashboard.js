@@ -29,7 +29,7 @@ async function loadAdminInfo() {
                 "管理员用户名：" + data.username;
         } else if (res.status === 401) {
             alert("登录已过期，请重新登录");
-            localStorage.removeItem("adminToken");
+            localStorage.removeItem("token");
             window.location.href = "admin.html";
         } else {
             document.getElementById("admin-info").innerText = data.msg || "获取信息失败";
@@ -43,7 +43,7 @@ async function loadAdminInfo() {
 // 退出登录
 function logout() {
     if (confirm("确定要退出登录吗？")) {
-        localStorage.removeItem("adminToken");
+        localStorage.removeItem("token");
         window.location.href = "admin.html";
     }
 }

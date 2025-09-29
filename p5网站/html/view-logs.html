@@ -1,17 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>查看日志</title>
+    <link rel="stylesheet" href="../css/view-logs.css">
 </head>
-
 <body>
-    <h2>日志查看</h2>
-    <p>这里以后可以做：查看系统操作日志、登录日志...</p>
-    <a href="admin-dashboard.html">返回后台主页</a>
+
+<h2>管理员日志查看</h2>
+
+<div>
+    <label>按类型筛选: 
+        <select id="typeFilter">
+            <option value="">全部</option>
+            <option value="LOGIN">登录</option>
+            <option value="OPERATION">操作</option>
+        </select>
+    </label>
+
+    <label>按用户名筛选: 
+        <input type="text" id="userFilter" placeholder="输入用户名">
+    </label>
+
+    <button id="filterBtn">筛选</button>
+    <button id="refreshBtn">刷新</button>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>用户名</th>
+            <th>角色</th>
+            <th>操作</th>
+            <th>类型</th>
+            <th>时间</th>
+        </tr>
+    </thead>
+    <tbody id="logTableBody">
+        <!-- 日志数据渲染到这里 -->
+    </tbody>
+</table>
+<a href="admin-dashboard.html">返回后台主页</a>
+
+<script src="../js/view-logs.js"></script>
 
 </body>
-
 </html>

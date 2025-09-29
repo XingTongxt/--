@@ -90,7 +90,7 @@ html {
 
 .admin-container input:focus {
     outline: none;
-    border-color: #ff3b3b; 
+    border-color: #ff3b3b;
     box-shadow: 0 0 15px rgba(255, 50, 50, 0.8);
     background: rgba(30, 30, 30, 0.9);
 }

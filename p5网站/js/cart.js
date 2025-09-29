@@ -1,13 +1,13 @@
 // cart.js
 const token = localStorage.getItem('token');
-if (token) {
-  import('../js/cart.js').then(module => {
-    module.loadCart(token);
-  });
-} else {
+
+if (!token) {
   alert('请先登录');
   window.location.href = 'login.html';
+} else {
+  loadCart(token);
 }
+
 // ===== 加载购物车 =====
 export async function loadCart(token) {
   if (!token) return;
@@ -62,18 +62,18 @@ export function renderCart(cartList) {
     const div = document.createElement('div');
     div.className = 'cart-item';
     div.innerHTML = `
-            <img src="${item.img || ''}" alt="${item.name}" class="cart-img">
-            <div class="cart-info">
-                <span class="cart-name">${item.name}</span>
-                <span class="cart-price">¥${item.price}</span>
-                <div class="qty-controls">
-                  <button class="btn-decrease">-</button>
-                  <span class="item-qty">${item.quantity}</span>
-                  <button class="btn-increase">+</button>
-                </div>
-                <button class="btn-remove" data-id="${item.productId}">删除</button>
-            </div>
-        `;
+      <img src="${item.img || ''}" alt="${item.name}" class="cart-img">
+      <div class="cart-info">
+          <span class="cart-name">${item.name}</span>
+          <span class="cart-price">¥${item.price}</span>
+          <div class="qty-controls">
+            <button class="btn-decrease">-</button>
+            <span class="item-qty">${item.quantity}</span>
+            <button class="btn-increase">+</button>
+          </div>
+          <button class="btn-remove" data-id="${item.productId}">删除</button>
+      </div>
+    `;
     itemsWrapper.appendChild(div);
 
     const decreaseBtn = div.querySelector('.btn-decrease');
@@ -95,36 +95,17 @@ export function renderCart(cartList) {
       await removeCartItem(item.productId, localStorage.getItem('token'));
     });
   });
- // ===== 总价显示 =====
-    let totalDiv = container.querySelector('.cart-total');
-    if (!totalDiv) {
-        totalDiv = document.createElement('div');
-        totalDiv.className = 'cart-total';
-        container.appendChild(totalDiv);
-    }
 
-    const total = cartList.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    totalDiv.textContent = `总价: ¥${total.toFixed(2)}`;
+  // ===== 总价显示 =====
+  let totalDiv = container.querySelector('.cart-total');
+  if (!totalDiv) {
+    totalDiv = document.createElement('div');
+    totalDiv.className = 'cart-total';
+    container.appendChild(totalDiv);
+  }
 
-
-
-
-  // 绑定数量修改事件
-  container.querySelectorAll('.cart-quantity').forEach(input => {
-    input.addEventListener('change', async e => {
-      const productId = e.target.dataset.id;
-      const quantity = parseInt(e.target.value);
-      await updateCartQuantity(productId, quantity, localStorage.getItem('token'));
-    });
-  });
-
-  // 绑定删除事件
-  container.querySelectorAll('.btn-remove').forEach(btn => {
-    btn.addEventListener('click', async e => {
-      const productId = e.target.dataset.id;
-      await removeCartItem(productId, localStorage.getItem('token'));
-    });
-  });
+  const total = cartList.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  totalDiv.textContent = `总价: ¥${total.toFixed(2)}`;
 }
 
 // ===== 添加商品到购物车 =====
@@ -147,7 +128,7 @@ export async function addToCartBackend(productId, token) {
       return;
     }
 
-    const cartList = await res.json(); // 后端返回完整列表
+    const cartList = await res.json(); 
     updateCartCount(cartList);
     renderCart(cartList);
   } catch (err) {
@@ -171,15 +152,17 @@ export async function updateCartQuantity(productId, quantity, token) {
 
     if (!res.ok) {
       const text = await res.text();
+      alert('更新失败: ' + text);
       console.error('更新购物车数量失败:', text);
       return;
     }
 
-    const cartList = await res.json(); // 后端返回完整列表
+    const cartList = await res.json(); 
     updateCartCount(cartList);
     renderCart(cartList);
   } catch (err) {
     console.error('更新购物车数量失败', err);
+    alert('更新购物车数量失败');
   }
 }
 
@@ -195,18 +178,16 @@ export async function removeCartItem(productId, token) {
 
     if (!res.ok) {
       const text = await res.text();
+      alert('删除失败: ' + text);
       console.error('删除购物车商品失败:', text);
       return;
     }
 
-    const cartList = await res.json(); // 后端返回完整列表
+    const cartList = await res.json(); 
     updateCartCount(cartList);
     renderCart(cartList);
   } catch (err) {
     console.error('删除购物车商品失败', err);
+    alert('删除购物车商品失败，请重试');
   }
 }
-
-
-
-

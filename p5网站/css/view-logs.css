@@ -1,0 +1,117 @@
+
+/* ================== 全局 ================== */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #1b1b1b;
+    color: #fff;
+    margin: 0;
+    padding: 20px;
+}
+
+h2 {
+    color: #e60012; /* Persona 5 红色 */
+    text-shadow: 2px 2px #000;
+}
+
+/* ================== 控件 ================== */
+input, select, button {
+    padding: 8px 12px;
+    margin-right: 10px;
+    border-radius: 4px;
+    border: none;
+    font-size: 14px;
+}
+
+input, select {
+    background-color: #2a2a2a;
+    color: #fff;
+}
+
+input::placeholder {
+    color: #888;
+}
+
+button {
+    background-color: #e60012;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #ff3b4a;
+}
+
+/* ================== 表格 ================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #2a2a2a;
+    box-shadow: 0 0 10px rgba(0,0,0,0.7);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+th {
+    background-color: #e60012;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+td {
+    border-bottom: 1px solid #3a3a3a;
+}
+
+tr:hover td {
+    background-color: #3a3a3a;
+}
+
+/* ================== 滚动条美化 ================== */
+tbody {
+    display: block;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+/* ================== 筛选区 ================== */
+div > label {
+    margin-right: 20px;
+}
+
+/* ================== 返回链接 ================== */
+a {
+    display: block;
+    width: max-content;
+    margin: 0 auto 40px;
+    padding: 8px 16px;
+    background-color: #e60012;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+a:hover {
+    background-color: #ff3b4a;
+}
+
+@media (max-width: 768px) {
+    body { padding: 10px; }
+    input, select, button { margin-bottom: 10px; width: 100%; }
+    table { font-size: 12px; }
+}
+
