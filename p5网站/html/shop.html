@@ -13,6 +13,7 @@
     <header class="shop-header">
         <h1 class="shop-title">商城</h1>
         <nav class="shop-nav">
+            <a href="admin-dashboard.html" id="admin-btn">后台管理</a>
             <a href="index.html">首页</a>
             <a href="cart.html" class="cart-icon">
                 🛒
@@ -22,7 +23,7 @@
 
         </nav>
     </header>
-
+    <div class="overlay"></div>
     <main class="shop-container">
         <!-- 商品会通过 JS 动态生成 -->
     </main>
@@ -70,9 +71,8 @@
         </div>
     </footer>
 
-    <script src="../js/main.js"></script>
-    <script src="../js/shop.js"></script>
-    <script src="../js/cart.js"></script>
+
+    <script type="module" src="../js/shop.js"></script>
     <script src="../js/background.js"></script>
 </body>
 

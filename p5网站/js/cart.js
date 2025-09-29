@@ -1,111 +1,193 @@
-const cartKey = 'shopCart';
-let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
+// cart.js
+const token = localStorage.getItem('token');
 
-// 更新购物车数量
-function updateCartCount() {
-  const cartCountEl = document.querySelector('.cart-count');
-  if (!cartCountEl) return;
-  const count = cart.reduce((s, i) => s + (i.quantity || 0), 0);
-  cartCountEl.textContent = count;
+if (!token) {
+  alert('请先登录');
+  window.location.href = 'login.html';
+} else {
+  loadCart(token);
 }
 
-// 保存购物车
-function saveCart() {
-  localStorage.setItem(cartKey, JSON.stringify(cart));
-  updateCartCount();
-}
+// ===== 加载购物车 =====
+export async function loadCart(token) {
+  if (!token) return;
 
-// 加入购物车（供 main.js 使用）
-function addToCart(product) {
-  const existing = cart.find(item => item.name === product.name);
-  if (existing) {
-    existing.quantity += 1;
-  } else {
-    cart.push(product);
-  }
-  saveCart();
-}
+  try {
+    const res = await fetch('http://localhost:8080/api/cart', {
+      headers: { 'Authorization': 'Bearer ' + token }
+    });
 
-// 删除商品
-function removeItem(name) {
-  cart = cart.filter(item => item.name !== name);
-  saveCart();
-  renderCart();
-}
+    if (!res.ok) {
+      const text = await res.text();
+      console.error('加载购物车失败, status:', res.status, text);
+      return;
+    }
 
-// 修改商品数量
-function updateQuantity(name, qty) {
-  const item = cart.find(i => i.name === name);
-  if (item) {
-    item.quantity = Math.max(1, qty);
-    saveCart();
-    renderCart();
+    const cartList = await res.json();
+    if (!cartList || !Array.isArray(cartList)) return;
+
+    updateCartCount(cartList);
+    renderCart(cartList);
+  } catch (err) {
+    console.error('加载购物车失败', err);
   }
 }
 
-// 计算总价
-function getTotal() {
-  return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+// ===== 更新购物车数量显示 =====
+export function updateCartCount(cartList) {
+  const cartIcon = document.querySelector('.cart-icon .cart-count');
+  if (!cartIcon || !Array.isArray(cartList)) return;
+
+  const total = cartList.reduce((sum, item) => sum + item.quantity, 0);
+  cartIcon.textContent = total;
 }
 
-// 渲染购物车页面
-function renderCart() {
-  const container = document.querySelector('.cart-items');
-  if (!container) return;
+// ===== 渲染购物车列表 =====
+export function renderCart(cartList) {
+  const container = document.querySelector('.cart-container');
+  if (!container || !Array.isArray(cartList)) return;
 
   container.innerHTML = '';
 
-  if (cart.length === 0) {
+  if (cartList.length === 0) {
     container.innerHTML = '<p>购物车为空</p>';
-    document.getElementById('cart-total').textContent = '总价: ¥0';
     return;
   }
 
-cart.forEach(item => {
-  const div = document.createElement('div');
-  div.className = 'cart-item';
-  div.innerHTML = `
-    <img src="${item.img}" alt="${item.name}">
-    <div class="item-info">
-      <h3>${item.name}</h3>
-      <p>¥${item.price}</p>
-      <div class="qty-controls">
-        <button class="btn-decrease">-</button>
-        <span class="item-qty">${item.quantity}</span>
-        <button class="btn-increase">+</button>
+  const itemsWrapper = document.createElement('div');
+  itemsWrapper.className = 'cart-items';
+  container.appendChild(itemsWrapper);
+
+  cartList.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'cart-item';
+    div.innerHTML = `
+      <img src="${item.img || ''}" alt="${item.name}" class="cart-img">
+      <div class="cart-info">
+          <span class="cart-name">${item.name}</span>
+          <span class="cart-price">¥${item.price}</span>
+          <div class="qty-controls">
+            <button class="btn-decrease">-</button>
+            <span class="item-qty">${item.quantity}</span>
+            <button class="btn-increase">+</button>
+          </div>
+          <button class="btn-remove" data-id="${item.productId}">删除</button>
       </div>
-      <button class="btn-remove">删除</button>
-    </div>
-  `;
-  container.appendChild(div);
+    `;
+    itemsWrapper.appendChild(div);
 
-  // 增加数量
-  div.querySelector('.btn-increase').addEventListener('click', () => {
-    updateQuantity(item.name, item.quantity + 1);
+    const decreaseBtn = div.querySelector('.btn-decrease');
+    const increaseBtn = div.querySelector('.btn-increase');
+    const qtySpan = div.querySelector('.item-qty');
+
+    decreaseBtn.addEventListener('click', async () => {
+      const newQty = Math.max(1, item.quantity - 1);
+      await updateCartQuantity(item.productId, newQty, localStorage.getItem('token'));
+    });
+
+    increaseBtn.addEventListener('click', async () => {
+      const newQty = item.quantity + 1;
+      await updateCartQuantity(item.productId, newQty, localStorage.getItem('token'));
+    });
+
+    const removeBtn = div.querySelector('.btn-remove');
+    removeBtn.addEventListener('click', async () => {
+      await removeCartItem(item.productId, localStorage.getItem('token'));
+    });
   });
 
-  // 减少数量
-  div.querySelector('.btn-decrease').addEventListener('click', () => {
-    updateQuantity(item.name, item.quantity - 1);
-  });
+  // ===== 总价显示 =====
+  let totalDiv = container.querySelector('.cart-total');
+  if (!totalDiv) {
+    totalDiv = document.createElement('div');
+    totalDiv.className = 'cart-total';
+    container.appendChild(totalDiv);
+  }
 
-  // 删除按钮
-  div.querySelector('.btn-remove').addEventListener('click', () => {
-    removeItem(item.name);
-  });
-});
-
-
-  // 更新总价
-  const totalEl = document.getElementById('cart-total');
-  totalEl.textContent = `总价: ¥${getTotal()}`;
+  const total = cartList.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  totalDiv.textContent = `总价: ¥${total.toFixed(2)}`;
 }
 
-// 初始化
-document.addEventListener('DOMContentLoaded', () => {
-  updateCartCount();
-  renderCart();
-});
+// ===== 添加商品到购物车 =====
+export async function addToCartBackend(productId, token) {
+  if (!token) return alert('请先登录');
 
-// 让 main.js 可以调用
-window.Cart = { addToCart };
+  try {
+    const res = await fetch('http://localhost:8080/api/cart', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify({ productId })
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      console.error('加入购物车失败:', text);
+      return;
+    }
+
+    const cartList = await res.json(); 
+    updateCartCount(cartList);
+    renderCart(cartList);
+  } catch (err) {
+    console.error('加入购物车失败', err);
+  }
+}
+
+// ===== 修改购物车商品数量 =====
+export async function updateCartQuantity(productId, quantity, token) {
+  if (!token) return alert('请先登录');
+
+  try {
+    const res = await fetch(`http://localhost:8080/api/cart/${productId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify({ quantity })
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      alert('更新失败: ' + text);
+      console.error('更新购物车数量失败:', text);
+      return;
+    }
+
+    const cartList = await res.json(); 
+    updateCartCount(cartList);
+    renderCart(cartList);
+  } catch (err) {
+    console.error('更新购物车数量失败', err);
+    alert('更新购物车数量失败');
+  }
+}
+
+// ===== 删除购物车商品 =====
+export async function removeCartItem(productId, token) {
+  if (!token) return alert('请先登录');
+
+  try {
+    const res = await fetch(`http://localhost:8080/api/cart/${productId}`, {
+      method: 'DELETE',
+      headers: { 'Authorization': 'Bearer ' + token }
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      alert('删除失败: ' + text);
+      console.error('删除购物车商品失败:', text);
+      return;
+    }
+
+    const cartList = await res.json(); 
+    updateCartCount(cartList);
+    renderCart(cartList);
+  } catch (err) {
+    console.error('删除购物车商品失败', err);
+    alert('删除购物车商品失败，请重试');
+  }
+}

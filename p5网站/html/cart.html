@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <title>购物车 - Persona 5 Shop</title>
     <link rel="stylesheet" href="../css/common.css">
-    </link>
+
     <link rel="stylesheet" href="../css/cart.css">
-    </link>
+
 
 </head>
 
@@ -24,19 +24,15 @@
     <main class="cart-container">
         <!-- 商品列表 -->
         <div class="cart-items"></div>
-
-        <!-- 底部总价和结算 -->
-        <div class="cart-footer">
-            <p id="cart-total">总价: ¥0</p>
-            <a href="javascript:void(0);" class="btn-checkout">去结算</a>
-        </div>
     </main>
+    <div class="cart-footer">
+        <a href="javascript:void(0);" class="btn-checkout">去结算</a>
+    </div>
 
+    <script type="module" src="../js/cart.js"></script>
 
-    <script src="../js/cart.js"></script>
-    <script src="../js/main.js"></script>
-    <script src="../js/shop.js"></script>
     <script src="../js/background.js"></script>
+
 </body>
 
 </html>

@@ -1,17 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>物品管理</title>
+    <link rel="stylesheet" href="../css/manage-items.css">
 </head>
-
 <body>
     <h2>物品管理</h2>
-    <p>这里以后可以做：审核失物信息、删除违规物品...</p>
+
+    <form id="add-item-form">
+        <input type="text" id="name" placeholder="物品名称" required>
+        <input type="number" id="price" placeholder="价格" required>
+        <input type="text" id="category" placeholder="分类" required>
+        <input type="text" id="img" placeholder="图片URL" required>
+        <button type="submit">新增物品</button>
+    </form>
+
+    <div class="table-container">
+    <table id="item-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>名称</th>
+                <th>价格</th>
+                <th>分类</th>
+                <th>图片</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 动态生成物品行 -->
+        </tbody>
+    </table>
+</div>
     <a href="admin-dashboard.html">返回后台主页</a>
 
+<script src="../js/manage-items.js"></script>
 </body>
-
 </html>
