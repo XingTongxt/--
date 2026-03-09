@@ -1,0 +1,35 @@
+.about-header {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(247, 0, 0, 0.5);
+    padding: 15px 30px;
+    border-bottom: 3px solid white;
+    box-shadow: 5px 5px 0 black;
+    z-index: 10;
+}
+
+
+.about-title {
+    font-size: 2rem;
+    transform: skew(-8deg);
+    text-shadow: 3px 3px 0 black;
+}
+
+.about-nav a {
+    margin-left: 20px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border: 2px solid white;
+    padding: 5px 15px;
+    transform: skew(-8deg);
+    background: black;
+    transition: all 0.2s;
+}
+
+
+.about-nav a:hover {
+    background: rgb(255, 25, 25);
+}
