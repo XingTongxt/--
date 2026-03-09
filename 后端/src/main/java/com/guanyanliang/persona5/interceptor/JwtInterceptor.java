@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
+
 @Component
 public class JwtInterceptor implements HandlerInterceptor {
 
@@ -13,7 +14,7 @@ public class JwtInterceptor implements HandlerInterceptor {
         String uri = request.getRequestURI();
 
         // 登录接口不拦截
-        if (uri.equals("/admin/login")) {
+        if (uri.equals("/admin/login") || uri.startsWith("/api/user/login") || uri.startsWith("/api/user/register")) {
             return true;
         }
 
@@ -35,7 +36,7 @@ public class JwtInterceptor implements HandlerInterceptor {
         }
 
         // 管理员接口权限校验
-        if (uri.startsWith("/admin") && !"admin".equals(role)) {
+        if (uri.startsWith("/admin") && !"ADMIN".equals(role)) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             response.getWriter().write("权限不足");
             return false;
@@ -43,5 +44,4 @@ public class JwtInterceptor implements HandlerInterceptor {
 
         return true;
     }
-
 }

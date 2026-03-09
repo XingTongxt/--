@@ -9,20 +9,21 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
     private Double price;
     private String img;
     private String category;
+    private String desc;
 
     // 构造函数
     public Product() {}
 
-    public Product(String name, Double price, String img, String category) {
+    public Product(String name, Double price, String img, String category, String desc) {
         this.name = name;
         this.price = price;
         this.img = img;
         this.category = category;
+        this.desc = desc;
     }
 
     // getter 和 setter
@@ -40,4 +41,7 @@ public class Product {
 
     public String getCategory() { return category; }
     public void setCategory(String category) { this.category = category; }
+
+    public String getDesc() { return desc;}
+    public void  setDesc(String desc) { this.desc = desc;}
 }

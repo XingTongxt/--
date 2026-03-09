@@ -5,6 +5,7 @@ import com.guanyanliang.persona5.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -52,4 +53,37 @@ public class UserService {
         }
         return false;
     }
+
+    // 登录管理员
+    public User adminLogin(String username, String password) {
+        Optional<User> userOpt = userRepository.findByUsername(username);
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            if ("ADMIN".equals(user.getRole()) && user.getPassword().equals(password)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public boolean changeRole(String username, String newRole) {
+        return userRepository.findByUsername(username).map(user -> {
+            user.setRole(newRole.toUpperCase());
+            userRepository.save(user);
+            return true;
+        }).orElse(false);
+    }
+
+    public boolean deleteUser(String username) {
+        return userRepository.findByUsername(username).map(user -> {
+            userRepository.delete(user);
+            return true;
+        }).orElse(false);
+    }
+
+
 }
