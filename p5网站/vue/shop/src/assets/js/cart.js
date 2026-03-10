@@ -205,16 +205,45 @@ export async function removeCartItem(productId) {
 }
 
 // ===== 结算购物车 =====
-export function checkoutCart(router) {
+export async function checkoutCart(router) {
+
   const token = getToken()
+
   if (!token) {
     alert('请先登录')
     if (router) router.push('/login')
     return
   }
 
-  alert('结算成功！')
-  localStorage.removeItem('cart')
-  if (router) router.push('/shop')
-  else window.location.reload()
+  try {
+
+    const res = await fetch('http://localhost:8080/api/cart/checkout', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    })
+
+    const text = await res.text()
+
+    if (!res.ok) {
+      alert('结算失败: ' + text)
+      return
+    }
+
+    alert('支付成功')
+
+    // 重新加载购物车
+    await loadCart()
+
+    if (router) {
+      router.push('/shop')
+    }
+
+  } catch (err) {
+
+    console.error('结算失败', err)
+    alert('支付失败')
+
+  }
 }

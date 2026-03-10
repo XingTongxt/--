@@ -1,9 +1,10 @@
 <template>
   <div>
+
     <header class="register-header">
       <h1 class="register-title">注册</h1>
       <nav class="register-nav">
-        <a href="/index.html">首页</a>
+        <router-link to="/">首页</router-link>
       </nav>
     </header>
 
@@ -11,12 +12,30 @@
 
     <div class="register-container">
       <div class="register-box">
-        <h1>注册 Phantom Shop</h1>
-        <input type="text" id="reg-username" placeholder="用户名">
-        <input type="password" id="reg-password" placeholder="密码">
-        <input type="password" id="reg-password2" placeholder="确认密码">
 
-        <button id="register-btn">注册</button>
+        <h1>注册 Phantom Shop</h1>
+
+        <input
+          v-model="username"
+          type="text"
+          placeholder="用户名"
+        />
+
+        <input
+          v-model="password"
+          type="password"
+          placeholder="密码"
+        />
+
+        <input
+          v-model="password2"
+          type="password"
+          placeholder="确认密码"
+        />
+
+        <button @click="register">
+          注册
+        </button>
 
         <span class="login-link">
           <router-link to="/login">返回登录</router-link>
@@ -24,15 +43,41 @@
 
       </div>
     </div>
+
   </div>
 </template>
 
 <script>
-import "../assets/js/register.js"
+
+import { registerUser } from "../assets/js/register.js"
 
 export default {
-  name: "Register"
+
+  name: "Register",
+
+  data() {
+    return {
+      username: "",
+      password: "",
+      password2: ""
+    }
+  },
+
+  methods: {
+
+    register() {
+      registerUser(
+        this.username,
+        this.password,
+        this.password2,
+        this.$router
+      )
+    }
+
+  }
+
 }
+
 </script>
 
 <style scoped>

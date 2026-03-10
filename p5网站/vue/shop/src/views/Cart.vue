@@ -14,7 +14,7 @@
     </main>
 
     <div class="cart-footer">
-      <a href="javascript:void(0);" class="btn-checkout" @click="checkout">去结算</a>
+      <button class="btn-checkout" @click="checkout">去结算</button>
     </div>
   </div>
 </template>
@@ -25,6 +25,7 @@ import { useRouter } from 'vue-router'
 import { initCartJS, checkoutCart } from '../assets/js/cart.js'
 
 const router = useRouter()
+
 const cartItems = ref(null)
 const cartTotal = ref(null)
 
@@ -32,8 +33,12 @@ onMounted(() => {
   initCartJS(cartItems.value, cartTotal.value, router)
 })
 
-function checkout() {
-  checkoutCart(router)
+const checkout = async () => {
+
+  if (!confirm("确认支付吗？")) return
+
+  await checkoutCart(router)
+
 }
 </script>
 
