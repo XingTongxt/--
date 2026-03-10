@@ -1,42 +1,45 @@
-export function initRegister() {
-    const registerBtn = document.getElementById('register-btn');
-    if (!registerBtn) return;
+export async function registerUser(username, password, password2, router) {
 
-    registerBtn.addEventListener('click', async () => {
-        const username = document.getElementById('reg-username').value.trim();
-        const password = document.getElementById('reg-password').value.trim();
-        const password2 = document.getElementById('reg-password2').value.trim();
+    if (!username || !password || !password2) {
+        alert("请填写完整信息")
+        return
+    }
 
-        if (!username || !password || !password2) {
-            alert('请填写完整信息');
-            return;
-        }
+    if (password !== password2) {
+        alert("两次密码不一致")
+        return
+    }
 
-        if (password !== password2) {
-            alert('两次密码不一致');
-            return;
-        }
+    try {
 
-        const data = { username, password };
+        const res = await fetch("http://localhost:8080/api/user/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username,
+                password
+            })
+        })
 
-        try {
-            const response = await fetch('http://localhost:8080/api/user/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
+        const text = await res.text()
 
-            const result = await response.text();
-            if (result === 'success') {
-                alert('注册成功');
-                window.location.href = '/login';
-            } else {
-                alert(result);
+        if (res.ok) {
+
+            alert("注册成功")
+
+            if (router) {
+                router.push("/login")
             }
 
-        } catch (error) {
-            console.error(error);
-            alert('注册失败，请检查后端服务');
+        } else {
+            alert(text)
         }
-    });
+
+    } catch (err) {
+        console.error(err)
+        alert("注册失败，请检查后端")
+    }
+
 }

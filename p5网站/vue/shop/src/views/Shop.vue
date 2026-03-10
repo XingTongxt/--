@@ -8,7 +8,7 @@
         <button id="search-btn">搜索</button>
       </div>
       <nav class="shop-nav">
-        <router-link to="/admin" id="admin-btn">后台管理</router-link>
+        <router-link to="/admin/dashboard" id="admin-btn">后台管理</router-link>
         <router-link to="/">首页</router-link>
         <router-link to="/cart" class="cart-icon">
           🛒

@@ -181,26 +181,49 @@ function showToast(msg) {
 }
 
 async function checkAdmin(token) {
+
   if (!token) return
+
   try {
-    let res = await fetch("http://localhost:8080/api/user/info", { headers: { "Authorization": "Bearer " + token } })
+
+    let res = await fetch("http://localhost:8080/api/user/info", {
+      headers: { "Authorization": "Bearer " + token }
+    })
+
     if (!res.ok) {
-      res = await fetch("http://localhost:8080/admin/info", { headers: { "Authorization": "Bearer " + token } })
+      res = await fetch("http://localhost:8080/admin/info", {
+        headers: { "Authorization": "Bearer " + token }
+      })
     }
+
     if (res.ok) {
+
       const data = await res.json()
-      if (data.role && data.role.toUpperCase() === "ADMIN") {
-        const adminBtn = document.createElement('a')
-        adminBtn.href = "/admin"
+
+      const role = data.role ? data.role.toUpperCase() : ""
+
+      if (role === "ADMIN" || role === "SUPERADMIN") {
+
+        const adminBtn = document.createElement("a")
+
+        adminBtn.href = "/admin/dashboard"
         adminBtn.id = "admin-btn"
         adminBtn.textContent = "后台管理"
+
         adminBtn.style.display = "inline-block"
-        document.querySelector('.shop-nav').appendChild(adminBtn)
+
+        document.querySelector(".shop-nav").appendChild(adminBtn)
+
       }
+
     }
+
   } catch (err) {
+
     console.error("获取用户/管理员信息失败", err)
+
   }
+
 }
 
 function searchProducts() {

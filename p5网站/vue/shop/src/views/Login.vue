@@ -4,7 +4,7 @@
       <h1 class="login-title">登录</h1>
       <nav class="login-nav">
         <router-link to="/">首页</router-link>
-        <router-link to="/admin">管理</router-link>
+        <!-- <router-link to="/admin">管理</router-link> -->
       </nav>
     </header>
 
