@@ -208,3 +208,30 @@ async function checkAdmin(token) {
     console.error("获取用户/管理员信息失败", err);
   }
 }
+
+document.getElementById("search-btn").addEventListener("click", async () => {
+  const query = document.getElementById("search").value;
+  const productCards = document.querySelectorAll('.product-card');
+  productCards.forEach(card => {
+    const title = card.querySelector('.product-title').textContent;
+    if (title.toLowerCase().includes(query.toLowerCase())) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+});
+document.getElementById("search").addEventListener("keyup", async (e) => {
+
+  const query = document.getElementById("search").value;
+  const productCards = document.querySelectorAll('.product-card');
+  productCards.forEach(card => {
+    const title = card.querySelector('.product-title').textContent;
+    if (title.toLowerCase().includes(query.toLowerCase())) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  })
+
+});

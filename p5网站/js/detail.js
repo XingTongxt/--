@@ -9,7 +9,7 @@ const products = {
   1: { title: "墙面画", price: 300, desc: "一幅美丽的墙面画，能够提升房间的艺术气息。", img: "../img/wall-paint.jpg" },
   2: { title: "马克杯", price: 150, desc: "一个可爱的马克杯，让你享受每一口咖啡。", img: "../img/Mug.jpg" },
   3: { title: "鼠标垫", price: 50, desc: "舒适的鼠标垫，让你的办公更顺手。", img: "../img/Mouse-Pad.jpg" },
-  4: { title: "Persona 5 海报", price: 48, desc: "精美的Persona 5海报，装点你的房间。", img: "../img/Persona-Poster.jpg" },
+  4: { title: "Persona 5 海报", price: 48, desc: "精美的Persona5海报，装点你的房间。", img: "../img/Persona-Poster.jpg" },
   5: { title: "背包", price: 98, desc: "可爱的SUMIRE YOSHIZAWA背包，实用又好看。", img: "../img/SUMIREYOSHIZAWA-Backpack.jpg" },
   6: { title: "Joker 模型", price: 588, desc: "精致的Joker模型，收藏爱好者必备。", img: "../img/Joker-Model.webp" },
   7: { title: "Mona Plush", price: 128, desc: "可爱的Mona毛绒玩具，陪伴你的每一天。", img: "../img/Mona-Plush.webp" },

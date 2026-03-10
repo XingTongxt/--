@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8567d5c2-0c11-4c28-a18e-37e12f6d6c85" name="更改" comment="refactor(admin): 重构管理员功能并整合用户服务&#10;&#10;- 移除独立的 Admin 实体及相关仓库和服务&#10;- 管理员逻辑合并至 UserController 和 UserService&#10;- 新增 Log 实体用于记录操作日志- 实现管理员登录、信息获取接口&#10;- 添加用户管理功能：查询、修改角色、删除用户&#10;- 添加物品管理功能：查询、新增、修改、删除商品&#10;- 添加日志管理功能：按类型和用户查询日志&#10;- 更新 JWT 拦截器以支持新的权限校验逻辑&#10;- 购物车服务中增强删除商品时的异常处理&#10;- 用户注册、登录、修改密码、登出时记录操作日志">
-      <change afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/entity/Order.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/entity/OrderItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/repository/OrderItemRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/repository/OrderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/CartController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/interceptor/JwtInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/interceptor/JwtInterceptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/util/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/util/JwtUtil.java" afterDir="false" />
-    </list>
+    <list default="true" id="8567d5c2-0c11-4c28-a18e-37e12f6d6c85" name="更改" comment="refactor(admin): 重构管理员功能并整合用户服务&#10;&#10;- 移除独立的 Admin 实体及相关仓库和服务&#10;- 管理员逻辑合并至 UserController 和 UserService&#10;- 新增 Log 实体用于记录操作日志- 实现管理员登录、信息获取接口&#10;- 添加用户管理功能：查询、修改角色、删除用户&#10;- 添加物品管理功能：查询、新增、修改、删除商品&#10;- 添加日志管理功能：按类型和用户查询日志&#10;- 更新 JWT 拦截器以支持新的权限校验逻辑&#10;- 购物车服务中增强删除商品时的异常处理&#10;- 用户注册、登录、修改密码、登出时记录操作日志" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -85,7 +75,7 @@
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_directory_selection&quot;: &quot;C:/Users/10078/IdeaProjects/persona5/后端/src/main/java/com/guanyanliang/persona5&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/10078/IdeaProjects/webTest&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/10078/IdeaProjects/persona5&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -94,7 +84,7 @@
     &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -135,14 +125,7 @@
       <workItem from="1758860596027" duration="2392000" />
       <workItem from="1758863296630" duration="192000" />
       <workItem from="1758866207460" duration="27960000" />
-      <workItem from="1759125761004" duration="7904000" />
-      <workItem from="1759149233050" duration="1877000" />
-      <workItem from="1759210582202" duration="1615000" />
-      <workItem from="1764567017457" duration="1808000" />
-      <workItem from="1766391110007" duration="675000" />
-      <workItem from="1767686913497" duration="735000" />
-      <workItem from="1773052690985" duration="17727000" />
-      <workItem from="1773163913923" duration="4410000" />
+      <workItem from="1759125761004" duration="7840000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <option name="closed" value="true" />
@@ -296,23 +279,7 @@
       <option name="project" value="LOCAL" />
       <updated>1759135006214</updated>
     </task>
-    <task id="LOCAL-00020" summary="refactor(admin): 重构管理员功能并整合用户服务&#10;&#10;- 移除独立的 Admin 实体及相关仓库和服务&#10;- 管理员逻辑合并至 UserController 和 UserService&#10;- 新增 Log 实体用于记录操作日志- 实现管理员登录、信息获取接口&#10;- 添加用户管理功能：查询、修改角色、删除用户&#10;- 添加物品管理功能：查询、新增、修改、删除商品&#10;- 添加日志管理功能：按类型和用户查询日志&#10;- 更新 JWT 拦截器以支持新的权限校验逻辑&#10;- 购物车服务中增强删除商品时的异常处理&#10;- 用户注册、登录、修改密码、登出时记录操作日志">
-      <option name="closed" value="true" />
-      <created>1759135078343</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1759135078343</updated>
-    </task>
-    <task id="LOCAL-00021" summary="refactor(admin): 重构管理员功能并整合用户服务&#10;&#10;- 移除独立的 Admin 实体及相关仓库和服务&#10;- 管理员逻辑合并至 UserController 和 UserService&#10;- 新增 Log 实体用于记录操作日志- 实现管理员登录、信息获取接口&#10;- 添加用户管理功能：查询、修改角色、删除用户&#10;- 添加物品管理功能：查询、新增、修改、删除商品&#10;- 添加日志管理功能：按类型和用户查询日志&#10;- 更新 JWT 拦截器以支持新的权限校验逻辑&#10;- 购物车服务中增强删除商品时的异常处理&#10;- 用户注册、登录、修改密码、登出时记录操作日志">
-      <option name="closed" value="true" />
-      <created>1773090504888</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1773090504888</updated>
-    </task>
-    <option name="localTasksCounter" value="22" />
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
