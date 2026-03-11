@@ -196,19 +196,36 @@ public class CartController {
         for (Cart c : cartList) {
 
             Product product = productRepository.findById(c.getProductId()).orElse(null);
+
             if (product == null) continue;
 
+            int quantity = c.getQuantity();
+
+            // ===== 库存检查 =====
+            if (product.getStock() < quantity) {
+                return ResponseEntity.badRequest().body(product.getName() + " 库存不足");
+            }
+
+            // ===== 扣库存 =====
+            product.setStock(product.getStock() - quantity);
+
+            // ===== 加销量 =====
+            product.setSales(product.getSales() + quantity);
+
+            productRepository.save(product);
+
+            // ===== 创建订单项 =====
             OrderItem item = new OrderItem();
 
             item.setOrderId(order.getId());
             item.setProductId(product.getId());
             item.setProductName(product.getName());
             item.setPrice(product.getPrice());
-            item.setQuantity(c.getQuantity());
+            item.setQuantity(quantity);
 
             orderItemRepository.save(item);
 
-            // 删除购物车
+            // ===== 删除购物车 =====
             cartRepository.deleteByUserAndProductId(user, product.getId());
         }
 

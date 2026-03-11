@@ -44,7 +44,7 @@ public class AdminController {
             if (("ADMIN".equals(user.getRole()) || "SUPERADMIN".equals(user.getRole()))
                     && user.getPassword().equals(password)) {
 
-                String token = JwtUtil.generateToken(username, user.getRole());
+                String token = JwtUtil.generateToken(user.getId(), user.getUsername(), user.getRole());
 
                 logRepository.save(new Log(username, user.getRole(),
                         "管理员登录成功", "LOGIN", LocalDateTime.now()));

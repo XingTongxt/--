@@ -15,9 +15,10 @@ public class JwtUtil {
     private static final long EXPIRATION = 24 * 60 * 60 * 1000;
 
     // 生成token
-    public static String generateToken(String username, String role) {
+    public static String generateToken(Long userId, String username, String role) {
         return Jwts.builder()
                 .setSubject(username)
+                .claim("userId", userId)
                 .claim("role", role)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
@@ -43,5 +44,9 @@ public class JwtUtil {
     public static String getRole(String token) {
         Object role = parseToken(token).get("role");
         return role != null ? role.toString() : null;
+    }
+    public static Long getUserId(String token) {
+        Object userId = parseToken(token).get("userId");
+        return userId != null ? Long.valueOf(userId.toString()) : null;
     }
 }

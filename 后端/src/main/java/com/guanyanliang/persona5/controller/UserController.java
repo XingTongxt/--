@@ -44,7 +44,11 @@ public class UserController {
         User loginUser = userService.login(user.getUsername(), user.getPassword());
         if (loginUser != null) {
             String role = loginUser.getRole() != null ? loginUser.getRole() : "USER";
-            String token = JwtUtil.generateToken(loginUser.getUsername(), role);
+            String token = JwtUtil.generateToken(
+                    loginUser.getId(),
+                    loginUser.getUsername(),
+                    role
+            );
 
             // 登录成功日志
             logRepository.save(new Log(loginUser.getUsername(), role, "登录成功", "LOGIN", LocalDateTime.now()));
