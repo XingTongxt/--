@@ -3,59 +3,64 @@
 
     <header class="shop-header">
       <h1 class="shop-title">商城</h1>
+
       <div class="search-bar">
-        <input type="text" id="search" placeholder="搜索商品...">
-        <button id="search-btn">搜索</button>
+        <input type="text" v-model="keyword" placeholder="搜索商品...">
+        <button @click="search">搜索</button>
+        <select class="sort-select" v-model="sortType" @change="changeSort">
+          <option value="default">默认排序</option>
+          <option value="sales">销量排序</option>
+          <option value="priceAsc">价格从低到高</option>
+          <option value="priceDesc">价格从高到低</option>
+          <option value="desc">评分从高到低</option>
+          <option value="asc">评分从低到高</option>
+        </select>
       </div>
+
       <nav class="shop-nav">
         <router-link to="/admin/dashboard" id="admin-btn">后台管理</router-link>
         <router-link to="/">首页</router-link>
+
         <router-link to="/cart" class="cart-icon">
           🛒
           <span class="cart-count">0</span>
         </router-link>
+
         <router-link to="/user">我的</router-link>
       </nav>
     </header>
 
-    
-
-    <main class="shop-container">
-    </main>
+    <main class="shop-container"></main>
 
     <div class="elevate">
       <ul class="elevate-list">
-        <li class="elevate-item" id="shop-cart">
-          <router-link to="/cart" class="cart-icon">
-            🛒
-            <span class="cart-count">0</span>
-          </router-link>
-        </li>
+
         <li class="elevate-item" id="recommended">
           <a href="javascript:void(0);">推荐</a>
         </li>
+
         <li class="elevate-item" id="tshirts">
           <a href="javascript:void(0);">T恤</a>
         </li>
+
         <li class="elevate-item" id="hoodies">
           <a href="javascript:void(0);">卫衣</a>
         </li>
+
         <li class="elevate-item" id="blankets">
           <a href="javascript:void(0);">毛毯</a>
         </li>
+
         <li class="elevate-item" id="pillows">
           <a href="javascript:void(0);">抱枕</a>
         </li>
-        <li class="elevate-item" id="home">
-          <router-link to="/user">我的</router-link>
-        </li>
+
         <li class="elevate-item" id="back-to-top">
-          <a href="javascript:void(0);" class="back-to-top">回顶部</a>
+          <a href="javascript:void(0);">回顶部</a>
         </li>
+
       </ul>
     </div>
-
-    <div style="height: 10px;"></div>
 
     <footer>
       <div class="footer-container">
@@ -70,18 +75,70 @@
 </template>
 
 <script>
-import { initShop } from "../assets/js/shop.js"
-import "../assets/js/background.js"
+
+
+import {
+  initShop,
+  loadProductsBySales,
+  loadProductsByPriceAsc,
+  loadProductsByPriceDesc,
+  loadAllProducts,
+  loadProductsByRating
+} from "../assets/js/shop.js"
 
 export default {
+
   name: "Shop",
+
+  data() {
+    return {
+      keyword: "",
+      sortType: "default"
+    }
+  },
+
   mounted() {
     initShop()
+  },
+
+  methods: {
+
+    search() {
+      searchProducts()
+    },
+
+    changeSort() {
+
+      if (this.sortType === "default") {
+        loadAllProducts()
+      }
+
+      if (this.sortType === "sales") {
+        loadProductsBySales()
+      }
+
+      if (this.sortType === "priceAsc") {
+        loadProductsByPriceAsc()
+      }
+
+      if (this.sortType === "priceDesc") {
+        loadProductsByPriceDesc()
+      }
+      if (this.sortType === "desc") {
+        loadProductsByRating(true)
+      }
+      if (this.sortType === "asc") {
+        loadProductsByRating(false)
+      }
+    }
+
   }
+
 }
+
 </script>
 
-<style >
+<style>
 @import "../assets/css/common.css";
 @import "../assets/css/shop.css";
 </style>
