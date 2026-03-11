@@ -19,6 +19,14 @@ public class Order {
 
     private LocalDateTime createTime;
 
+    private LocalDateTime shipTime;
+
+    @Column(name = "return_status")
+    private String returnStatus;  // 退货状态：PENDING, APPROVED, REJECTED
+
+    @Column(name = "refund_status")
+    private String refundStatus;  // 退款状态：PENDING, APPROVED, REJECTED
+
     // ===== Getter Setter =====
 
     public Long getId() {
@@ -59,5 +67,28 @@ public class Order {
 
     public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
+    }
+    public LocalDateTime getShipTime() {
+        return shipTime;
+    }
+
+    public void setShipTime(LocalDateTime shipTime) {
+        this.shipTime = shipTime;
+    }
+
+    public String getReturnStatus() {
+        return returnStatus;
+    }
+
+    public void setReturnStatus(String returnStatus) {
+        this.returnStatus = returnStatus;
+    }
+
+    public String getRefundStatus() {
+        return refundStatus;
+    }
+
+    public void setRefundStatus(String refundStatus) {
+        this.refundStatus = refundStatus;
     }
 }

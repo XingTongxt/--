@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
@@ -212,7 +213,33 @@ public class AdminController {
                 })
                 .orElse(ResponseEntity.status(404).body("物品不存在"));
     }
+    // ==================== 单独修改库存 ====================
+    @PatchMapping("/items/{id}/stock")
+    public ResponseEntity<?> updateStock(
+            @RequestHeader("Authorization") String authHeader,
+            @PathVariable Long id,
+            @RequestBody Map<String, Integer> body) {
 
+        if (!isAdminOrSuperAdmin(authHeader))
+            return ResponseEntity.status(403).body("权限不足");
+
+        Integer stock = body.get("stock");
+        if (stock == null) return ResponseEntity.badRequest().body("库存不能为空");
+
+        return productRepository.findById(id)
+                .map(product -> {
+                    product.setStock(stock);
+                    productRepository.save(product);
+
+                    String adminUsername = JwtUtil.getUsername(authHeader.replace("Bearer ", "").trim());
+                    logRepository.save(new Log(adminUsername, "ADMIN",
+                            "修改物品库存：" + product.getName() + " -> " + stock,
+                            "OPERATION", LocalDateTime.now()));
+
+                    return ResponseEntity.ok("库存修改成功");
+                })
+                .orElse(ResponseEntity.status(404).body("物品不存在"));
+    }
     @DeleteMapping("/items/{id}")
     public ResponseEntity<?> deleteItem(@RequestHeader("Authorization") String authHeader,
                                         @PathVariable Long id) {

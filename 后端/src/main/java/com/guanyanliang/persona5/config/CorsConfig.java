@@ -12,6 +12,7 @@ public class CorsConfig {
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedOrigin("http://127.0.0.1:5500"); // 前端地址
+        config.addAllowedOrigin("http://localhost:5173");
         config.setAllowCredentials(true);                // 允许带 Cookie
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");

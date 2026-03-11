@@ -76,6 +76,52 @@
         background-color: #ff3b4a;
     }
 
+    .sort-select {
+
+        margin-left: 10px;
+        padding: 6px 30px 6px 10px;
+
+        border-radius: 6px;
+        border: 1px solid #ccc;
+
+        background: #fff;
+        color: #333;
+
+        font-size: 14px;
+        cursor: pointer;
+
+        outline: none;
+
+        transition: all 0.25s ease;
+
+    }
+
+    .sort-select:hover {
+
+        border-color: #409eff;
+
+    }
+
+    .sort-select:focus {
+
+        border-color: #409eff;
+        box-shadow: 0 0 4px rgba(64, 158, 255, 0.5);
+
+    }
+
+    .sort-select {
+
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+
+        background-image: url("data:image/svg+xml;utf8,<svg fill='%23666' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+        background-repeat: no-repeat;
+        background-position: right 8px center;
+        background-size: 16px;
+
+    }
+
     .shop-title {
         font-size: 2rem;
         transform: skew(-8deg);

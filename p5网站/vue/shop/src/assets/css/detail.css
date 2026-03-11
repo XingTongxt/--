@@ -1,52 +1,381 @@
+/* 整个详情页背景 */
+.detail-page {
+    min-height: 100vh;
+
+    background-image: url("../img/1.png");
+    background-size: cover;
+    background-position: center;
+
+    padding-bottom: 80px;
+}
+
+
+/* 商品区域 */
 .detail-container {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    padding: 40px;
-    gap: 40px;
-    height: 100vh;
-    animation: slideIn 0.6s ease-out;
-    background: url("../img/1.png");
+
+    padding: 60px 20px;
 }
 
+
+/* 商品卡片 */
+.product-main {
+
+    display: flex;
+    gap: 40px;
+
+    background: rgba(0, 0, 0, 0.85);
+
+    border: 6px solid white;
+
+    padding: 35px;
+
+    transform: skew(-2deg);
+
+    box-shadow: 10px 10px 0 red;
+
+    max-width: 900px;
+
+    animation: slideIn 0.6s ease-out;
+
+}
+
+
+/* 商品图片 */
 .product-image {
     width: 300px;
+
     border: 5px solid red;
-    box-shadow: 5px 5px black;
+
+    box-shadow: 6px 6px black;
+
     transition: transform 0.3s;
 }
 
 .product-image:hover {
-    transform: rotate(-3deg) scale(1.05);
+    transform: rotate(-4deg) scale(1.05);
 }
 
+
+/* 商品信息 */
 .product-info {
     max-width: 400px;
+    transform: skew(2deg);
 }
 
+
+/* 商品标题 */
 .product-info h2 {
-    font-size: 32px;
-    color: red;
-    margin-bottom: 15px;
-    text-shadow: 2px 2px black;
+
+    font-size: 34px;
+
+    color: white;
+
+    text-shadow: 3px 3px red;
+
+    margin-bottom: 20px;
+
 }
 
+
+/* 描述 */
 .product-info p {
-    font-size: 18px;
-    line-height: 1.5;
+
+    font-size: 17px;
+
+    color: #ddd;
+
+    line-height: 1.6;
+
+    margin-bottom: 20px;
+
+}
+
+
+/* 价格 */
+.price {
+
+    font-size: 24px;
+
+    color: #ffd700;
+
+    font-weight: bold;
+
+    margin-bottom: 20px;
+
+}
+
+
+/* 数量选择 */
+.qty-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     margin-bottom: 20px;
 }
 
-.price {
-    font-size: 22px;
-    color: yellow;
+.qty-selector button {
+
+    width: 30px;
+    height: 30px;
+
+    background: red;
+    color: white;
+
+    border: none;
+
     font-weight: bold;
-    margin-bottom: 20px;
+
+    cursor: pointer;
+
 }
+
+.qty {
+    font-size: 18px;
+    color: white;
+}
+
+
+/* 加入购物车按钮 */
+.btn-add {
+
+    background: red;
+
+    color: white;
+
+    border: 3px solid white;
+
+    padding: 12px 22px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transform: skew(-8deg);
+
+    transition: all 0.2s;
+
+}
+
+.btn-add:hover {
+
+    background: white;
+
+    color: black;
+
+    box-shadow: 6px 6px 0 red;
+
+}
+
+
+/* ================= 评论区 ================= */
+
+.comment-section {
+
+    width: 900px;
+
+    margin: 60px auto;
+
+    padding: 30px;
+
+    background: rgba(255, 255, 255, 0.95);
+
+    border: 5px solid black;
+
+    transform: skew(-1deg);
+
+    box-shadow: 10px 10px 0 red;
+
+}
+
+
+/* 评论标题 */
+.comment-section h2 {
+
+    font-size: 26px;
+
+    color: black;
+
+    border-left: 8px solid red;
+
+    padding-left: 10px;
+
+    margin-bottom: 25px;
+
+}
+
+
+/* 评论列表 */
+.comment-list {
+    margin-bottom: 30px;
+}
+
+
+/* 单条评论 */
+.comment-item {
+  position: relative; 
+  padding: 15px 15px 40px 15px; 
+  border-bottom: 2px dashed #ccc;
+  background: rgba(0,0,0,0.05);
+  transform: skew(-1deg);
+}
+
+.comment-username {
+    font-weight: bold;
+    color: #d32f2f;
+    margin-bottom: 4px;
+}
+
+/* 星级 */
+.comment-rating {
+
+    color: #ff9800;
+
+    font-size: 18px;
+
+}
+
+
+/* 评论内容 */
+.comment-content {
+
+    margin: 8px 0;
+    font-size: 15px;
+    color: #000;
+
+}
+
+
+/* 评论时间 */
+.comment-time {
+
+    font-size: 12px;
+
+    color: #888;
+
+}
+
+
+/* 评论输入 */
+.comment-form textarea {
+
+    width: 100%;
+
+    height: 90px;
+
+    border: 3px solid black;
+
+    padding: 10px;
+
+    margin-bottom: 15px;
+
+    font-size: 14px;
+
+}
+
+
+/* 星级选择 */
+.comment-form select {
+
+    padding: 6px;
+
+    margin-right: 10px;
+
+}
+
+
+/* 评论按钮 */
+.comment-form button {
+
+    background: black;
+
+    color: white;
+
+    border: 3px solid red;
+
+    padding: 8px 18px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transform: skew(-5deg);
+
+}
+
+.comment-form button:hover {
+
+    background: red;
+
+}
+
+.delete-comment-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: red;
+  color: white;
+  border: 3px solid black;
+  padding: 6px 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transform: skew(-8deg);
+  box-shadow: 4px 4px black;
+  transition: all 0.2s;
+}
+
+.delete-comment-btn:hover {
+  background: black;
+  color: red;
+  box-shadow: 6px 6px red;
+}
+
+/* ================= Toast ================= */
+
+.toast {
+
+    position: fixed;
+
+    top: 20px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    background: black;
+
+    color: white;
+
+    padding: 12px 20px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    z-index: 9999;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: opacity 0.3s ease;
+
+}
+
+.toast.show {
+
+    opacity: 1;
+
+}
+
+
+/* 动画 */
 
 @keyframes slideIn {
+
     from {
-        transform: translateX(-100%);
+        transform: translateX(-80px);
         opacity: 0;
     }
 
@@ -54,41 +383,5 @@
         transform: translateX(0);
         opacity: 1;
     }
-}
-.btn-add {
-    background: black;
-    color: white;
-    border: 2px solid white;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-weight: bold;
-    transform: skew(-6deg);
-    transition: all 0.2s;
-}
 
-.btn-add:hover {
-    background: white;
-    color: black;
-    box-shadow: 4px 4px 0 black;
-}
-
-.toast {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: rgba(0, 0, 0, 0.85);
-  color: #fff;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-size: 14px;
-  z-index: 9999;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
 }
