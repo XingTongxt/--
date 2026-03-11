@@ -19,6 +19,7 @@ export function initLogin(router) {
 
             if (res.ok) {
                 localStorage.setItem('token', data.token)
+                localStorage.setItem('username', username)
                 if (router) {
                     router.push('/shop') 
                 } else {

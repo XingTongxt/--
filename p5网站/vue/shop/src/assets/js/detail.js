@@ -9,7 +9,7 @@ export function renderProductDetail(container, product) {
       <img src="${product.img}" alt="${product.name}" class="product-image">
       <div class="product-info">
           <h2>${product.name}</h2>
-          <p>${product.desc}</p>
+          <p>${product.description}</p>
           <div class="price">价格：¥${product.price}</div>
           <div class="qty-selector">
             <button class="decrease">-</button>
