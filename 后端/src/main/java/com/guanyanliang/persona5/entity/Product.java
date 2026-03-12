@@ -13,17 +13,21 @@ public class Product {
     private Double price;
     private String img;
     private String category;
-    private String desc;
+    private String description;
+    private Integer stock;
+    private Integer sales;
 
     // 构造函数
     public Product() {}
 
-    public Product(String name, Double price, String img, String category, String desc) {
+    public Product(String name, Double price, String img, String category, String description, Integer stock, Integer sales) {
         this.name = name;
         this.price = price;
         this.img = img;
         this.category = category;
-        this.desc = desc;
+        this.description = description;
+        this.stock = stock;
+        this.sales = sales;
     }
 
     // getter 和 setter
@@ -42,6 +46,12 @@ public class Product {
     public String getCategory() { return category; }
     public void setCategory(String category) { this.category = category; }
 
-    public String getDesc() { return desc;}
-    public void  setDesc(String desc) { this.desc = desc;}
+    public String getDescription() { return description;}
+    public void setDescription(String description) { this.description = description;}
+
+    public Integer getStock() { return stock; }
+    public void setStock(Integer stock) { this.stock = stock; }
+
+    public Integer getSales() { return sales; }
+    public void setSales(Integer sales) { this.sales = sales; }
 }
