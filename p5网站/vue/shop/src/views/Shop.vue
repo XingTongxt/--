@@ -18,14 +18,12 @@
       </div>
 
       <nav class="shop-nav">
-        <router-link to="/admin/dashboard" id="admin-btn">后台管理</router-link>
         <router-link to="/">首页</router-link>
-
         <router-link to="/cart" class="cart-icon">
           🛒
           <span class="cart-count">0</span>
         </router-link>
-
+        <router-link to="/orders">订单</router-link>
         <router-link to="/user">我的</router-link>
       </nav>
     </header>

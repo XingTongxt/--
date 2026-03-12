@@ -34,6 +34,10 @@
               <img :src="item.img" alt="物品图片" class="item-img">
             </td>
             <td>
+              {{ item.stock }}
+              <button @click="updateStock(item)">修改库存</button>
+            </td>
+            <td>
               <button @click="editItemHandler(item)">修改</button>
               <button @click="deleteItemHandler(item.id)">删除</button>
             </td>
@@ -97,6 +101,28 @@ function editItemHandler(item) {
 // 删除物品
 function deleteItemHandler(id) {
   deleteItem(token, id, () => loadItems(token, renderItemsCallback))
+}
+
+async function updateStock(item) {
+  const newStock = parseInt(prompt("请输入库存数量:", item.stock));
+  if (isNaN(newStock)) return alert("库存无效");
+
+  const res = await fetch(`http://localhost:8080/admin/items/${item.id}/stock`, {
+    method: "PATCH",
+    headers: {
+      "Authorization": "Bearer " + token,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ stock: newStock })
+  });
+
+  if (res.ok) {
+    alert("库存修改成功");
+    loadItems(token, renderItemsCallback); // 刷新表格
+  } else {
+    const msg = await res.text();
+    alert("修改失败：" + msg);
+  }
 }
 </script>
 
