@@ -141,7 +141,7 @@
     }
 
     .shop-nav #admin-btn {
-        display: none;
+        display: inline-block; 
     }
 
     .shop-nav a:hover {

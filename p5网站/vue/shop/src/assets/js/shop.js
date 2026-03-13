@@ -388,7 +388,6 @@ async function checkAdmin(token) {
     if (res.ok) {
 
       const data = await res.json()
-
       userRole = data.role ? data.role.toUpperCase() : "USER"
 
       if (userRole === "ADMIN" || userRole === "SUPERADMIN") {

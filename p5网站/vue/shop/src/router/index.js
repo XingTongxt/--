@@ -11,6 +11,7 @@ const routes = [
   { path: "/register", component: () => import("../views/Register.vue") },
   { path: "/user", component: () => import("../views/User.vue") },
   { path: "/cart", component: () => import("../views/Cart.vue") },
+  { path: "/orders", component: () => import("../views/OrdersPage.vue") }, 
   { path: "/admin/dashboard", component: () => import("../views/Admin-dashboard.vue") },
   { path: "/admin/manage-users", component: () => import("../views/Manage-users.vue") },
   { path: "/admin/manage-items", component: () => import("../views/Manage-items.vue") },
