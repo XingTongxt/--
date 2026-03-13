@@ -40,7 +40,6 @@ export function setupQuantity(container) {
   });
 }
 
-// setupAddCart(container, product, productId)
 export function setupAddCart(container, product, productId) {
   const addBtn = container.querySelector('.btn-add');
   addBtn.addEventListener('click', async () => {

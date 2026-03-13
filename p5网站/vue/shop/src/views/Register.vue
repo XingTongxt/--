@@ -15,23 +15,10 @@
 
         <h1>注册 Phantom Shop</h1>
 
-        <input
-          v-model="username"
-          type="text"
-          placeholder="用户名"
-        />
-
-        <input
-          v-model="password"
-          type="password"
-          placeholder="密码"
-        />
-
-        <input
-          v-model="password2"
-          type="password"
-          placeholder="确认密码"
-        />
+        <input v-model="username" type="text" placeholder="用户名" />
+        <input v-model="password" type="password" placeholder="密码" />
+        <input v-model="password2" type="password" placeholder="确认密码" />
+        <input v-model="email" type="email" placeholder="邮箱" />
 
         <button @click="register">
           注册
@@ -59,7 +46,8 @@ export default {
     return {
       username: "",
       password: "",
-      password2: ""
+      password2: "",
+      email: ""
     }
   },
 
@@ -70,6 +58,7 @@ export default {
         this.username,
         this.password,
         this.password2,
+        this.email,
         this.$router
       )
     }

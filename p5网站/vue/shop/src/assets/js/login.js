@@ -16,14 +16,13 @@ export function initLogin(router) {
                 credentials: 'include'
             })
             const data = await res.json()
-
             if (res.ok) {
-                localStorage.setItem('token', data.token)
-                localStorage.setItem('username', username)
+                localStorage.setItem('token', data.data.token)
+                localStorage.setItem('username', data.data.username)
                 if (router) {
-                    router.push('/shop') 
+                    router.push('/shop')
                 } else {
-                    window.location.href = '/shop' 
+                    window.location.href = '/shop'
                 }
             } else {
                 alert(data.error)

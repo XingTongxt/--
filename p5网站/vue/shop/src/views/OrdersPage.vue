@@ -22,35 +22,42 @@
             <span v-if="orderWrapper.order.shipTime">
               发货时间: {{ formatDate(orderWrapper.order.shipTime) }}
             </span>
-
-            <!-- 管理员发货按钮 -->
-            <button v-if="isAdmin && orderWrapper.order.status === 'PAID'"
-                    @click="shipOrder(orderWrapper.order.id)"
-                    :disabled="shippingOrderId === orderWrapper.order.id">
+            <button v-if="isAdmin && orderWrapper.order.status === 'PAID'" @click="shipOrder(orderWrapper.order.id)"
+              :disabled="shippingOrderId === orderWrapper.order.id">
               {{ shippingOrderId === orderWrapper.order.id ? '发货中...' : '发货' }}
             </button>
           </div>
 
-          <!-- 用户端：退货/退款申请按钮 + 状态 -->
-          <div class="order-actions" v-if="!isAdmin && orderWrapper.order.status === 'SHIPPED'">
-            <span v-if="orderWrapper.returnStatus && orderWrapper.returnStatus !== 'NONE'">
-              退货状态: {{ getRequestStatusText(orderWrapper.returnStatus) }}
-            </span>
-            <button v-if="!orderWrapper.returnStatus || orderWrapper.returnStatus === 'NONE'"
-                    @click="applyReturn(orderWrapper.order.id)">
-              申请退货
-            </button>
+          <div class="order-actions" v-if="!isAdmin">
+            <template v-if="orderWrapper.order.status === 'PAID'">
+              <span v-if="orderWrapper.refundStatus && orderWrapper.refundStatus !== 'NONE'">
+                退款状态: {{ getRequestStatusText(orderWrapper.refundStatus) }}
+              </span>
+              <button v-if="!orderWrapper.refundStatus || orderWrapper.refundStatus === 'NONE'"
+                @click="applyRefund(orderWrapper.order.id)">
+                申请退款
+              </button>
+            </template>
 
-            <span v-if="orderWrapper.refundStatus && orderWrapper.refundStatus !== 'NONE'">
-              退款状态: {{ getRequestStatusText(orderWrapper.refundStatus) }}
-            </span>
-            <button v-if="!orderWrapper.refundStatus || orderWrapper.refundStatus === 'NONE'"
-                    @click="applyRefund(orderWrapper.order.id)">
-              申请退款
-            </button>
+            <template v-else-if="orderWrapper.order.status === 'SHIPPED'">
+              <span v-if="orderWrapper.returnStatus && orderWrapper.returnStatus !== 'NONE'">
+                退货状态: {{ getRequestStatusText(orderWrapper.returnStatus) }}
+              </span>
+              <button v-if="!orderWrapper.returnStatus || orderWrapper.returnStatus === 'NONE'"
+                @click="applyReturn(orderWrapper.order.id)">
+                申请退货
+              </button>
+
+              <span v-if="orderWrapper.refundStatus && orderWrapper.refundStatus !== 'NONE'">
+                退款状态: {{ getRequestStatusText(orderWrapper.refundStatus) }}
+              </span>
+              <button v-if="!orderWrapper.refundStatus || orderWrapper.refundStatus === 'NONE'"
+                @click="applyRefund(orderWrapper.order.id)">
+                申请退款
+              </button>
+            </template>
           </div>
 
-          <!-- 管理员端：批准退货/退款 -->
           <div class="order-actions" v-if="isAdmin">
             <span v-if="orderWrapper.returnStatus && orderWrapper.returnStatus !== 'NONE'">
               退货状态: {{ getRequestStatusText(orderWrapper.returnStatus) }}
@@ -58,17 +65,14 @@
             <span v-if="orderWrapper.refundStatus && orderWrapper.refundStatus !== 'NONE'">
               退款状态: {{ getRequestStatusText(orderWrapper.refundStatus) }}
             </span>
-            <button v-if="orderWrapper.returnStatus === 'PENDING'" 
-                    @click="approveReturn(orderWrapper.order.id)">
+            <button v-if="orderWrapper.returnStatus === 'PENDING'" @click="approveReturn(orderWrapper.order.id)">
               批准退货
             </button>
-            <button v-if="orderWrapper.refundStatus === 'PENDING'" 
-                    @click="approveRefund(orderWrapper.order.id)">
+            <button v-if="orderWrapper.refundStatus === 'PENDING'" @click="approveRefund(orderWrapper.order.id)">
               批准退款
             </button>
           </div>
 
-          <!-- 商品表格 -->
           <table class="order-items" v-if="orderWrapper.items?.length">
             <thead>
               <tr>
@@ -135,7 +139,6 @@ function getStatusClass(status) {
   return classMap[status] || '';
 }
 
-// 退货/退款状态中文化
 function getRequestStatusText(status) {
   const map = {
     'NONE': '无申请',
@@ -145,7 +148,6 @@ function getRequestStatusText(status) {
   return map[status] || status;
 }
 
-// 获取订单
 async function fetchOrders() {
   if (!token) { loading.value = false; return; }
   try {
@@ -168,7 +170,6 @@ async function fetchOrders() {
   }
 }
 
-// 发货
 async function shipOrder(orderId) {
   if (!confirm("确定发货吗？") || shippingOrderId.value) return;
   try {
@@ -186,7 +187,6 @@ async function shipOrder(orderId) {
   }
 }
 
-// 用户申请退货
 async function applyReturn(orderId) {
   if (!confirm("确定申请退货吗？")) return;
   try {
@@ -201,7 +201,6 @@ async function applyReturn(orderId) {
   }
 }
 
-// 用户申请退款
 async function applyRefund(orderId) {
   if (!confirm("确定申请退款吗？")) return;
   try {
@@ -216,7 +215,6 @@ async function applyRefund(orderId) {
   }
 }
 
-// 管理员批准退货
 async function approveReturn(orderId) {
   if (!confirm("确定批准该退货申请吗？")) return;
   try {
@@ -231,7 +229,6 @@ async function approveReturn(orderId) {
   }
 }
 
-// 管理员批准退款
 async function approveRefund(orderId) {
   if (!confirm("确定批准该退款申请吗？")) return;
   try {
@@ -250,31 +247,141 @@ onMounted(fetchOrders);
 </script>
 
 <style scoped>
-.orders-page { padding: 20px; max-width: 1200px; margin: 0 auto; height: 100vh; display: flex; flex-direction: column; }
-.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-.back-btn { padding: 5px 12px; background-color: #1976d2; color: white; border-radius: 4px; text-decoration: none; }
-.back-btn:hover { background-color: #1565c0; }
+.orders-page {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
-.orders-container { flex: 1; overflow-y: auto; padding-right: 10px; }
-.empty-order, .loading { text-align: center; padding: 40px; color: #666; font-size: 16px; }
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
 
-.order-card { border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-radius: 6px; background: #dbb7b7; }
-.order-header { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 10px; align-items: center; }
-.order-header button { background-color: #4caf50; color: rgb(243,185,185); border: none; padding: 5px 12px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s; }
-.order-header button:hover { background-color: #45a049; }
-.order-header button:disabled { background-color: #f4c8c8; cursor: not-allowed; }
+.back-btn {
+  padding: 5px 12px;
+  background-color: #1976d2;
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+}
 
-.order-actions { margin-top: 10px; }
-.order-actions button { background-color: #ff9800; color: white; border: none; padding: 5px 12px; margin-right: 10px; border-radius: 4px; cursor: pointer; }
-.order-actions button:hover { background-color: #f57c00; }
+.back-btn:hover {
+  background-color: #1565c0;
+}
 
-.order-items { width: 100%; border-collapse: collapse; margin-top: 10px; }
-.order-items th, .order-items td { border: 1px solid #a17f7f; padding: 8px; text-align: left; color: #000; }
-.order-items th { background-color: #e0b4b4; }
+.orders-container {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 10px;
+}
 
-.status-paid { color: #ff9800; font-weight: 500; }
-.status-shipped { color: #2196f3; font-weight: 500; }
-.status-completed { color: #4caf50; font-weight: 500; }
-.status-canceled { color: #f44336; font-weight: 500; }
-.status-pending { color: #9c27b0; font-weight: 500; }
+.empty-order,
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+  font-size: 16px;
+}
+
+.order-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  background: #dbb7b7;
+}
+
+.order-header {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.order-header button {
+  background-color: #4caf50;
+  color: rgb(243, 185, 185);
+  border: none;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.order-header button:hover {
+  background-color: #45a049;
+}
+
+.order-header button:disabled {
+  background-color: #f4c8c8;
+  cursor: not-allowed;
+}
+
+.order-actions {
+  margin-top: 10px;
+}
+
+.order-actions button {
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  padding: 5px 12px;
+  margin-right: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.order-actions button:hover {
+  background-color: #f57c00;
+}
+
+.order-items {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.order-items th,
+.order-items td {
+  border: 1px solid #a17f7f;
+  padding: 8px;
+  text-align: left;
+  color: #000;
+}
+
+.order-items th {
+  background-color: #e0b4b4;
+}
+
+.status-paid {
+  color: #ff9800;
+  font-weight: 500;
+}
+
+.status-shipped {
+  color: #2196f3;
+  font-weight: 500;
+}
+
+.status-completed {
+  color: #4caf50;
+  font-weight: 500;
+}
+
+.status-canceled {
+  color: #f44336;
+  font-weight: 500;
+}
+
+.status-pending {
+  color: #9c27b0;
+  font-weight: 500;
+}
 </style>

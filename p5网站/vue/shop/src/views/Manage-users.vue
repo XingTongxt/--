@@ -20,6 +20,7 @@
               <select v-model="user.role">
                 <option value="USER">USER</option>
                 <option value="ADMIN">ADMIN</option>
+                <option value="SUPERADMIN">SUPERADMIN</option>
               </select>
             </td>
             <td>
