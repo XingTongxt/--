@@ -11,9 +11,7 @@ public class JwtUtil {
 
     private static final String SECRET = "your_super_secret_key_which_should_be_long_enough";
     private static final SecretKey KEY = Keys.hmacShaKeyFor(SECRET.getBytes());
-
     private static final long EXPIRATION = 24 * 60 * 60 * 1000;
-
     // 生成token
     public static String generateToken(Long userId, String username, String role) {
         return Jwts.builder()
@@ -25,7 +23,6 @@ public class JwtUtil {
                 .signWith(KEY)
                 .compact();
     }
-
     // 解析token
     public static Claims parseToken(String token) {
         return Jwts.parserBuilder()
@@ -34,12 +31,10 @@ public class JwtUtil {
                 .parseClaimsJws(token)
                 .getBody();
     }
-
     // 获取用户名
     public static String getUsername(String token) {
         return parseToken(token).getSubject();
     }
-
     // 获取角色
     public static String getRole(String token) {
         Object role = parseToken(token).get("role");

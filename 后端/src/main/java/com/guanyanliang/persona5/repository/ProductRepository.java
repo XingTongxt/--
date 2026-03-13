@@ -9,9 +9,7 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAllByOrderBySalesDesc();
-    // 按价格排序（低→高）
     List<Product> findAllByOrderByPriceAsc();
-
-    // 按价格排序（高→低）
     List<Product> findAllByOrderByPriceDesc();
+
 }

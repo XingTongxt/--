@@ -163,7 +163,6 @@ public class AdminController {
 
         if (!isAdminOrSuperAdmin(authHeader))
             return ResponseEntity.status(403).body("权限不足");
-
         return ResponseEntity.ok(productRepository.findAll());
     }
 
@@ -181,7 +180,6 @@ public class AdminController {
         logRepository.save(new Log(adminUsername, "ADMIN",
                 "新增物品：" + product.getName(),
                 "OPERATION", LocalDateTime.now()));
-
         return ResponseEntity.ok("新增成功");
     }
 
@@ -213,7 +211,29 @@ public class AdminController {
                 })
                 .orElse(ResponseEntity.status(404).body("物品不存在"));
     }
-    // ==================== 单独修改库存 ====================
+    @DeleteMapping("/items/{id}")
+    public ResponseEntity<?> deleteItem(@RequestHeader("Authorization") String authHeader,
+                                        @PathVariable Long id) {
+
+        if (!isAdminOrSuperAdmin(authHeader))
+            return ResponseEntity.status(403).body("权限不足");
+
+        return productRepository.findById(id)
+                .map(product -> {
+
+                    productRepository.delete(product);
+
+                    String adminUsername = JwtUtil.getUsername(authHeader.replace("Bearer ", "").trim());
+
+                    logRepository.save(new Log(adminUsername, "ADMIN",
+                            "删除物品：" + product.getName(),
+                            "OPERATION", LocalDateTime.now()));
+
+                    return ResponseEntity.ok("删除成功");
+                })
+                .orElse(ResponseEntity.status(404).body("物品不存在"));
+    }
+    // ==================== 修改库存 ====================
     @PatchMapping("/items/{id}/stock")
     public ResponseEntity<?> updateStock(
             @RequestHeader("Authorization") String authHeader,
@@ -240,28 +260,7 @@ public class AdminController {
                 })
                 .orElse(ResponseEntity.status(404).body("物品不存在"));
     }
-    @DeleteMapping("/items/{id}")
-    public ResponseEntity<?> deleteItem(@RequestHeader("Authorization") String authHeader,
-                                        @PathVariable Long id) {
 
-        if (!isAdminOrSuperAdmin(authHeader))
-            return ResponseEntity.status(403).body("权限不足");
-
-        return productRepository.findById(id)
-                .map(product -> {
-
-                    productRepository.delete(product);
-
-                    String adminUsername = JwtUtil.getUsername(authHeader.replace("Bearer ", "").trim());
-
-                    logRepository.save(new Log(adminUsername, "ADMIN",
-                            "删除物品：" + product.getName(),
-                            "OPERATION", LocalDateTime.now()));
-
-                    return ResponseEntity.ok("删除成功");
-                })
-                .orElse(ResponseEntity.status(404).body("物品不存在"));
-    }
 
     // ==================== 日志管理（ADMIN和SUPERADMIN） ====================
     @GetMapping("/logs")
