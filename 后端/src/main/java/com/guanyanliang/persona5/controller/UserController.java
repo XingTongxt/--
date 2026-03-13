@@ -4,6 +4,7 @@ import com.guanyanliang.persona5.entity.Log;
 import com.guanyanliang.persona5.entity.User;
 import com.guanyanliang.persona5.repository.LogRepository;
 import com.guanyanliang.persona5.service.UserService;
+import com.guanyanliang.persona5.util.ApiResponse;
 import com.guanyanliang.persona5.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,113 +22,123 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
     @Autowired
     private LogRepository logRepository;
 
     // ==================== 用户注册 ====================
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody User user) {
+    public ResponseEntity<ApiResponse<Void>> register(@RequestBody User user) {
         String result = userService.register(user);
-        String status = result.equals("注册成功") ? "成功" : "失败";
+        boolean success = "注册成功".equals(result);
 
-        // 保存注册日志
-        logRepository.save(new Log(user.getUsername(), "USER", "注册账号 " + status, "OPERATION", LocalDateTime.now()));
+        // 保存日志
+        String username = user.getUsername() == null ? "未知用户" : user.getUsername();
+        logRepository.save(new Log(username, "USER", "注册账号 " + (success ? "成功" : "失败"), "OPERATION", LocalDateTime.now()));
 
-        return ResponseEntity.ok(Map.of(
-                "message", result
-        ));
+        return ResponseEntity
+                .status(success ? HttpStatus.OK : HttpStatus.BAD_REQUEST)
+                .body(new ApiResponse<>(success ? 200 : 400, result, null));
     }
 
     // ==================== 用户登录 ====================
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User user) {
-        User loginUser = userService.login(user.getUsername(), user.getPassword());
-        if (loginUser != null) {
-            String role = loginUser.getRole() != null ? loginUser.getRole() : "USER";
-            String token = JwtUtil.generateToken(
-                    loginUser.getId(),
-                    loginUser.getUsername(),
-                    role
-            );
-
-            // 登录成功日志
-            logRepository.save(new Log(loginUser.getUsername(), role, "登录成功", "LOGIN", LocalDateTime.now()));
-
-            Map<String, Object> data = new HashMap<>();
-            data.put("message", "登录成功");
-            data.put("token", token);
-            data.put("username", loginUser.getUsername());
-            data.put("email", loginUser.getEmail());
-            data.put("role", role);
-            return ResponseEntity.ok(data);
-        } else {
-            // 登录失败日志
+    public ResponseEntity<ApiResponse<Map<String, Object>>> login(@RequestBody User user) {
+        Optional<User> loginUserOpt = userService.login(user.getUsername(), user.getPassword(), null);
+        if (loginUserOpt.isEmpty()) {
             logRepository.save(new Log(user.getUsername(), "USER", "登录失败", "LOGIN", LocalDateTime.now()));
-            return ResponseEntity.status(401).body(Map.of("error", "用户名或密码错误"));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new ApiResponse<>(401, "用户名或密码错误", null));
         }
+
+        User loginUser = loginUserOpt.get();
+        String role = loginUser.getRole() != null ? loginUser.getRole() : "USER";
+        String token = JwtUtil.generateToken(loginUser.getId(), loginUser.getUsername(), role);
+
+        logRepository.save(new Log(loginUser.getUsername(), role, "登录成功", "LOGIN", LocalDateTime.now()));
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("token", token);
+        data.put("username", loginUser.getUsername());
+        data.put("email", loginUser.getEmail());
+        data.put("role", role);
+
+        return ResponseEntity.ok(new ApiResponse<>(200, "登录成功", data));
     }
 
     // ==================== 获取用户信息 ====================
     @GetMapping("/info")
-    public ResponseEntity<?> getUserInfo(@RequestHeader("Authorization") String authHeader) {
-        if (!isLoggedIn(authHeader)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("未登录或 token 无效");
-
-        String token = authHeader.replace("Bearer ", "").trim();
-        String username = JwtUtil.getUsername(token);
-        String role = JwtUtil.getRole(token);
+    public ResponseEntity<ApiResponse<Map<String, Object>>> getUserInfo(@RequestHeader("Authorization") String authHeader) {
+        String username = extractUsername(authHeader);
+        if (username == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new ApiResponse<>(401, "未登录或 token 无效", null));
+        }
 
         Optional<User> optionalUser = userService.findByUsername(username);
-        if (optionalUser.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("用户不存在");
+        if (optionalUser.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse<>(404, "用户不存在", null));
+        }
 
         User user = optionalUser.get();
         Map<String, Object> result = new HashMap<>();
         result.put("username", user.getUsername());
         result.put("email", user.getEmail() != null ? user.getEmail() : "未绑定");
-        result.put("role", role);
+        result.put("role", JwtUtil.getRole(authHeader.replace("Bearer ", "").trim()));
 
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(new ApiResponse<>(200, "获取成功", result));
     }
 
     // ==================== 修改密码 ====================
     @PostMapping("/change-password")
-    public ResponseEntity<?> changePassword(@RequestHeader("Authorization") String authHeader,
-                                            @RequestBody Map<String, String> request) {
-        if (!isLoggedIn(authHeader)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("未登录或 token 无效");
+    public ResponseEntity<ApiResponse<Void>> changePassword(@RequestHeader("Authorization") String authHeader,
+                                                            @RequestBody Map<String, String> request) {
+        String username = extractUsername(authHeader);
+        String role = extractRole(authHeader);
+        if (username == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new ApiResponse<>(401, "未登录或 token 无效", null));
+        }
 
-        String token = authHeader.replace("Bearer ", "").trim();
-        String username = JwtUtil.getUsername(token);
-        String role = JwtUtil.getRole(token);
         String newPassword = request.get("newPassword");
-
         if (newPassword == null || newPassword.isEmpty()) {
-            return ResponseEntity.badRequest().body("新密码不能为空");
+            return ResponseEntity.badRequest().body(new ApiResponse<>(400, "新密码不能为空", null));
         }
 
         boolean success = userService.changePassword(username, newPassword);
         if (success) {
-            // 保存修改密码日志
             logRepository.save(new Log(username, role, "修改密码", "OPERATION", LocalDateTime.now()));
+            return ResponseEntity.ok(new ApiResponse<>(200, "修改成功", null));
+        } else {
+            return ResponseEntity.status(500).body(new ApiResponse<>(500, "修改失败", null));
         }
-
-        return success ? ResponseEntity.ok(Map.of("message", "修改成功")) :
-                ResponseEntity.status(500).body(Map.of("message", "修改失败"));
     }
 
     // ==================== 用户登出 ====================
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(@RequestHeader(value = "Authorization", required = false) String authHeader) {
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            String token = authHeader.replace("Bearer ", "").trim();
-            String username = JwtUtil.getUsername(token);
-            String role = JwtUtil.getRole(token);
-            // 保存登出日志
+    public ResponseEntity<ApiResponse<Void>> logout(@RequestHeader(value = "Authorization", required = false) String authHeader) {
+        String username = extractUsername(authHeader);
+        String role = extractRole(authHeader);
+
+        if (username != null) {
             logRepository.save(new Log(username, role, "用户登出", "OPERATION", LocalDateTime.now()));
         }
-        return ResponseEntity.ok(Map.of("message", "已退出登录"));
+        return ResponseEntity.ok(new ApiResponse<>(200, "已退出登录", null));
     }
 
     // ==================== 工具方法 ====================
-    private boolean isLoggedIn(String authHeader) {
-        return authHeader != null && authHeader.startsWith("Bearer ") && JwtUtil.getUsername(authHeader.replace("Bearer ", "").trim()) != null;
+    private String extractUsername(String authHeader) {
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            return JwtUtil.getUsername(authHeader.replace("Bearer ", "").trim());
+        }
+        return null;
+    }
+
+    private String extractRole(String authHeader) {
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            return JwtUtil.getRole(authHeader.replace("Bearer ", "").trim());
+        }
+        return "USER";
     }
 }

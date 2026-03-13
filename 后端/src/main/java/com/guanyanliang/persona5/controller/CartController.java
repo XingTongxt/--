@@ -163,91 +163,135 @@ public class CartController {
     @Transactional
     public ResponseEntity<?> checkout(
             @RequestHeader(value = "Authorization", required = false) String authHeader) {
-
         User user = getUserFromAuthHeader(authHeader);
-
         if (user == null) {
             return ResponseEntity.status(401).body("未登录");
         }
-
         List<Cart> cartList = cartRepository.findByUser(user);
-
         if (cartList.isEmpty()) {
             return ResponseEntity.badRequest().body("购物车为空");
         }
-
         double total = 0;
-
         for (Cart c : cartList) {
             Product product = productRepository.findById(c.getProductId()).orElse(null);
             if (product != null) {
                 total += product.getPrice() * c.getQuantity();
             }
         }
-
         Order order = new Order();
         order.setUserId(user.getId());
         order.setTotalPrice(total);
         order.setStatus("PAID");
         order.setCreateTime(LocalDateTime.now());
-
         orderRepository.save(order);
-
         for (Cart c : cartList) {
-
             Product product = productRepository.findById(c.getProductId()).orElse(null);
-
             if (product == null) continue;
-
             int quantity = c.getQuantity();
-
-            // ===== 库存检查 =====
             if (product.getStock() < quantity) {
                 return ResponseEntity.badRequest().body(product.getName() + " 库存不足");
             }
-
-            // ===== 扣库存 =====
             product.setStock(product.getStock() - quantity);
-
-            // ===== 加销量 =====
             product.setSales(product.getSales() + quantity);
-
             productRepository.save(product);
-
-            // ===== 创建订单项 =====
             OrderItem item = new OrderItem();
-
             item.setOrderId(order.getId());
             item.setProductId(product.getId());
             item.setProductName(product.getName());
             item.setPrice(product.getPrice());
             item.setQuantity(quantity);
-
             orderItemRepository.save(item);
-
-            // ===== 删除购物车 =====
             cartRepository.deleteByUserAndProductId(user, product.getId());
         }
 
         return ResponseEntity.ok("支付成功");
     }
+    @PostMapping("/direct-order")
+    @Transactional
+    public ResponseEntity<?> directOrder(
+            @RequestHeader(value = "Authorization", required = false) String authHeader,
+            @RequestBody Map<String, Object> body) {
+
+        // 解析用户
+        User user = getUserFromAuthHeader(authHeader);
+        if (user == null) {
+            return ResponseEntity.status(401).body("未登录或 token 无效");
+        }
+
+        // 获取前端传来的 productId 和数量
+        Long productId = ((Number) body.get("productId")).longValue();
+        Integer quantity = ((Number) body.get("quantity")).intValue();
+
+        if (productId == null || quantity == null || quantity <= 0) {
+            return ResponseEntity.badRequest().body("商品ID或数量错误");
+        }
+
+        Product product = productRepository.findById(productId).orElse(null);
+        if (product == null) {
+            return ResponseEntity.badRequest().body("商品不存在");
+        }
+
+        if (product.getStock() < quantity) {
+            return ResponseEntity.badRequest().body(product.getName() + " 库存不足");
+        }
+
+        // 计算总价
+        double total = product.getPrice() * quantity;
+
+        // 创建订单
+        Order order = new Order();
+        order.setUserId(user.getId());
+        order.setTotalPrice(total);
+        order.setStatus("PAID"); // 如果要模拟支付，可以先写 PAID
+        order.setCreateTime(LocalDateTime.now());
+        orderRepository.save(order);
+
+        // 创建订单项
+        OrderItem item = new OrderItem();
+        item.setOrderId(order.getId());
+        item.setProductId(product.getId());
+        item.setProductName(product.getName());
+        item.setPrice(product.getPrice());
+        item.setQuantity(quantity);
+        orderItemRepository.save(item);
+
+        // 更新库存和销量
+        product.setStock(product.getStock() - quantity);
+        product.setSales(product.getSales() + quantity);
+        productRepository.save(product);
+
+        return ResponseEntity.ok("下单成功");
+    }
     // ===== 工具方法：解析用户 =====
     private User getUserFromAuthHeader(String authHeader) {
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            System.out.println("Authorization header 无效：" + authHeader);
             return null;
         }
 
         String token = authHeader.substring(7);
 
+        // 检查 token 是否为无效字符串
+        if (token == null || token.isEmpty() || "undefined".equals(token)) {
+            System.out.println("Token 无效或为 undefined");
+            return null;
+        }
+
         try {
 
             String username = JwtUtil.getUsername(token);
+
+            if (username == null) {
+                System.out.println("Token 解析失败，username 为 null");
+                return null;
+            }
 
             return userService.findByUsername(username).orElse(null);
 
         } catch (Exception e) {
 
+            System.err.println("Token 解析异常：" + e.getMessage());
             e.printStackTrace();
 
             return null;

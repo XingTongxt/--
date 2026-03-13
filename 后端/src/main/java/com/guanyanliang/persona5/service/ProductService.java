@@ -23,10 +23,8 @@ public class ProductService {
             throw new RuntimeException("库存不足");
         }
 
-        // 减库存
         product.setStock(product.getStock() - quantity);
 
-        // 加销量
         product.setSales(product.getSales() + quantity);
 
         productRepository.save(product);

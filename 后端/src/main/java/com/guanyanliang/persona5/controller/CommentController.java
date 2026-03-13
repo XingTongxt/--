@@ -60,19 +60,13 @@ public class CommentController {
             @RequestBody Comment comment,
             @RequestHeader("Authorization") String authHeader
     ){
-
         String token = authHeader.replace("Bearer ", "");
-
         Long userId = JwtUtil.getUserId(token);
-
         if (userId == null) {
             throw new RuntimeException("无效的 token，未找到 userId");
         }
-
         comment.setUserId(userId);
-
         comment.setCreateTime(LocalDateTime.now());
-
         return commentRepository.save(comment);
     }
     @DeleteMapping("/{id}")

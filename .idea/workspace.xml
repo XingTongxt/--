@@ -4,15 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8567d5c2-0c11-4c28-a18e-37e12f6d6c85" name="更改" comment="feat(product): 添加商品库存管理和评论功能&#10;&#10;- 在JWT token中添加用户ID信息用于身份识别&#10;- 实现商品库存字段和销量统计功能&#10;- 在购物车结算时添加库存检查和扣减逻辑&#10;- 创建Comment实体和相关控制器实现评论功能&#10;- 添加商品按销量和价格排序的API接口&#10;- 实现商品购买业务逻辑的服务层方法">
-      <change afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/OrderController.java" afterDir="false" />
+    <list default="true" id="8567d5c2-0c11-4c28-a18e-37e12f6d6c85" name="更改" comment="feat(order): 添加订单管理和库存更新功能&#10;&#10;- 在AdminController中添加跨域注解并实现单独修改库存的API&#10;- 新增OrderController实现订单查询、发货、退货退款等完整流程&#10;- 扩展Order实体添加发货时间、退货退款状态字段&#10;- 更新CORS配置添加Vite开发服务器允许源&#10;- 在SecurityConfig中添加PATCH方法到允许的HTTP方法列表&#10;- 扩展OrderItemRepository和OrderRepository添加订单查询方法">
+      <change afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/service/PasswordEncoderInitializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/util/ApiResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/util/RegisterValidateUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/config/CorsConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/config/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/entity/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/repository/OrderItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/repository/OrderItemRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/repository/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/repository/OrderRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/CartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/CommentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/repository/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/repository/ProductRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/service/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/util/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/util/JwtUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,7 +141,7 @@
       <workItem from="1758863296630" duration="192000" />
       <workItem from="1758866207460" duration="27960000" />
       <workItem from="1759125761004" duration="7840000" />
-      <workItem from="1773323879894" duration="10736000" />
+      <workItem from="1773323879894" duration="30993000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <option name="closed" value="true" />
@@ -306,7 +311,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773261077560</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="feat(order): 添加订单管理和库存更新功能&#10;&#10;- 在AdminController中添加跨域注解并实现单独修改库存的API&#10;- 新增OrderController实现订单查询、发货、退货退款等完整流程&#10;- 扩展Order实体添加发货时间、退货退款状态字段&#10;- 更新CORS配置添加Vite开发服务器允许源&#10;- 在SecurityConfig中添加PATCH方法到允许的HTTP方法列表&#10;- 扩展OrderItemRepository和OrderRepository添加订单查询方法">
+      <option name="closed" value="true" />
+      <created>1773340259231</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1773340259231</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -331,7 +344,9 @@
     <MESSAGE value="refactor(admin): 重构管理员功能并整合用户服务&#10;&#10;- 移除独立的 Admin 实体及相关仓库和服务&#10;- 管理员逻辑合并至 UserController 和 UserService&#10;- 新增 Log 实体用于记录操作日志- 实现管理员登录、信息获取接口&#10;- 添加用户管理功能：查询、修改角色、删除用户&#10;- 添加物品管理功能：查询、新增、修改、删除商品&#10;- 添加日志管理功能：按类型和用户查询日志&#10;- 更新 JWT 拦截器以支持新的权限校验逻辑&#10;- 购物车服务中增强删除商品时的异常处理&#10;- 用户注册、登录、修改密码、登出时记录操作日志" />
     <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
     <MESSAGE value="feat(product): 添加商品库存管理和评论功能&#10;&#10;- 在JWT token中添加用户ID信息用于身份识别&#10;- 实现商品库存字段和销量统计功能&#10;- 在购物车结算时添加库存检查和扣减逻辑&#10;- 创建Comment实体和相关控制器实现评论功能&#10;- 添加商品按销量和价格排序的API接口&#10;- 实现商品购买业务逻辑的服务层方法" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(product): 添加商品库存管理和评论功能&#10;&#10;- 在JWT token中添加用户ID信息用于身份识别&#10;- 实现商品库存字段和销量统计功能&#10;- 在购物车结算时添加库存检查和扣减逻辑&#10;- 创建Comment实体和相关控制器实现评论功能&#10;- 添加商品按销量和价格排序的API接口&#10;- 实现商品购买业务逻辑的服务层方法" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/main'" />
+    <MESSAGE value="feat(order): 添加订单管理和库存更新功能&#10;&#10;- 在AdminController中添加跨域注解并实现单独修改库存的API&#10;- 新增OrderController实现订单查询、发货、退货退款等完整流程&#10;- 扩展Order实体添加发货时间、退货退款状态字段&#10;- 更新CORS配置添加Vite开发服务器允许源&#10;- 在SecurityConfig中添加PATCH方法到允许的HTTP方法列表&#10;- 扩展OrderItemRepository和OrderRepository添加订单查询方法" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(order): 添加订单管理和库存更新功能&#10;&#10;- 在AdminController中添加跨域注解并实现单独修改库存的API&#10;- 新增OrderController实现订单查询、发货、退货退款等完整流程&#10;- 扩展Order实体添加发货时间、退货退款状态字段&#10;- 更新CORS配置添加Vite开发服务器允许源&#10;- 在SecurityConfig中添加PATCH方法到允许的HTTP方法列表&#10;- 扩展OrderItemRepository和OrderRepository添加订单查询方法" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
