@@ -21,6 +21,7 @@
             <th>价格</th>
             <th>分类</th>
             <th>图片</th>
+            <th>库存</th>
             <th>操作</th>
           </tr>
         </thead>
@@ -61,7 +62,9 @@ const newItem = ref({
   name: '',
   price: 0,
   category: '',
-  img: ''
+  img: '',
+  stock: 0,
+  sales: 0
 })
 
 // 渲染回调
@@ -126,6 +129,6 @@ async function updateStock(item) {
 }
 </script>
 
-<style>
+<style scoped>
 @import "/src/assets/css/manage-items.css";
 </style>

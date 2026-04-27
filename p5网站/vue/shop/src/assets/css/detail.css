@@ -4,7 +4,34 @@ html, body {
     margin: 0;
     padding: 0;
 }
-/* 整个详情页背景 */
+
+.detail-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 40px;
+    background-color: rgba(255, 0, 0, 0.3);
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.detail-title {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.detail-nav a {
+    color: #f4f4ec;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 500;
+}
+
+.detail-nav a:hover {
+    color: #ffcc00;
+    text-decoration: underline;
+}
+
+/* 详情页背景 */
 .detail-page {
     min-height: 100vh;
     background-image: url("../img/1.png");
@@ -335,6 +362,28 @@ html, body {
     background: black;
     color: red;
     box-shadow: 6px 6px red;
+}
+/* 平均评分 */
+.average-rating {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #ffcc00;
+}
+
+/* 空状态 */
+.empty {
+    text-align: center;
+    color: white;
+    margin-top: 100px;
+}
+
+.empty button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: red;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
 
 /* ================= Toast ================= */

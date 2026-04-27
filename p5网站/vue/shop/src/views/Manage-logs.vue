@@ -74,6 +74,6 @@ onMounted(() => {
 })
 </script>
 
-<style>
+<style scoped>
 @import "/src/assets/css/manage-logs.css";
 </style>

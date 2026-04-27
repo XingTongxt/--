@@ -1,10 +1,12 @@
 <template>
+  <header class="order-header">
+    <h1 class="order-title">我的订单</h1>
+    <nav class="order-nav">
+      <router-link to="/">首页</router-link>
+      <router-link to="/shop">返回商店</router-link>
+    </nav>
+  </header>
   <div class="orders-page">
-    <div class="header">
-      <h2>我的订单</h2>
-      <router-link to="/shop" class="back-btn">返回商城</router-link>
-    </div>
-
     <div v-if="loading" class="loading">加载中...</div>
     <div v-else-if="orders.length === 0" class="empty-order">暂无订单</div>
 
@@ -256,23 +258,30 @@ onMounted(fetchOrders);
   flex-direction: column;
 }
 
-.header {
+.order-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
+  padding: 20px 40px;
+  background-color: rgba(255, 0, 0, 0.3);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
-.back-btn {
-  padding: 5px 12px;
-  background-color: #1976d2;
-  color: white;
-  border-radius: 4px;
+.order-title {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.order-nav a {
+  color: #f4f4ec;
   text-decoration: none;
+  margin-left: 20px;
+  font-weight: 500;
 }
 
-.back-btn:hover {
-  background-color: #1565c0;
+.order-nav a:hover {
+  color: #ffcc00;
+  text-decoration: underline;
 }
 
 .orders-container {

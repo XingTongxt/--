@@ -64,6 +64,6 @@ onMounted(() => {
 })
 </script>
 
-<style>
+<style scoped>
 @import "/src/assets/css/manage-users.css";
 </style>

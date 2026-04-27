@@ -81,7 +81,8 @@ import {
   loadProductsByPriceAsc,
   loadProductsByPriceDesc,
   loadAllProducts,
-  loadProductsByRating
+  loadProductsByRating,
+  searchProducts
 } from "../assets/js/shop.js"
 
 export default {
@@ -102,7 +103,7 @@ export default {
   methods: {
 
     search() {
-      searchProducts()
+      searchProducts(this.keyword)
     },
 
     changeSort() {

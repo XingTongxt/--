@@ -46,9 +46,9 @@ export async function loadUserInfo() {
     }
 
     const data = await res.json();
-    userState.username = data.username;
-    userState.email = data.email || '未绑定';
-    userState.role = data.role || 'user';
+    userState.username = data.data.username;
+    userState.email = data.data.email || '未绑定';
+    userState.role = data.data.role || 'user';
 
     // 更新 DOM
     const usernameEl = document.getElementById('username');

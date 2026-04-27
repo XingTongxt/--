@@ -111,7 +111,7 @@ export function renderCart(cartList) {
 }
 
 
-export async function addToCartBackend(productId) {
+export async function addToCartBackend(productId, quantity) {
   const token = localStorage.getItem('token')
   if (!token) {
     alert('请先登录')
@@ -125,7 +125,7 @@ export async function addToCartBackend(productId) {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + token
       },
-      body: JSON.stringify({ productId })
+      body: JSON.stringify({ productId ,quantity})
     })
 
     if (!res.ok) {
@@ -158,7 +158,7 @@ export async function updateCartQuantity(productId, quantity) {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + token
       },
-      body: JSON.stringify({ quantity })
+      body: JSON.stringify({ quantity})
     })
     if (!res.ok) {
       const text = await res.text()

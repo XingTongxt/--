@@ -212,20 +212,14 @@ function initShopJsEvents(token, cartIcon) {
 
 }
 
-export function searchProducts() {
+export function searchProducts(keyword) {
 
-  const query = document.getElementById("search").value.toLowerCase()
-
+  const query = keyword.toLowerCase()
   const productCards = document.querySelectorAll('.product-card')
-
   productCards.forEach(card => {
-
     const title = card.querySelector('.product-title').textContent.toLowerCase()
-
     card.style.display = title.includes(query) ? "block" : "none"
-
   })
-
 }
 
 export async function loadProductsBySales() {
@@ -378,7 +372,7 @@ async function checkAdmin(token) {
     if (res.ok) {
 
       const data = await res.json()
-      userRole = data.role ? data.role.toUpperCase() : "USER"
+      userRole = data.data.role ? data.data.role.toUpperCase() : "USER"
 
       if (userRole === "ADMIN" || userRole === "SUPERADMIN") {
 

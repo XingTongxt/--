@@ -8,36 +8,22 @@
 
       <h3>功能菜单</h3>
 
-      <!-- 只有 SUPERADMIN 可以看到 -->
-      <div
-        v-if="role === 'SUPERADMIN'"
-        class="menu-item"
-        @click="goTo('/admin/manage-users', $event)"
-      >
+      <!-- SUPERADMIN -->
+      <router-link v-if="role === 'SUPERADMIN'" to="/admin/manage-users" class="menu-item">
         用户管理
-      </div>
+      </router-link>
 
-      <div
-        class="menu-item"
-        @click="goTo('/admin/manage-items', $event)"
-      >
+      <router-link to="/admin/manage-items" class="menu-item">
         物品管理
-      </div>
+      </router-link>
 
-      <div
-        v-if="role === 'SUPERADMIN'"
-        class="menu-item"
-        @click="goTo('/admin/manage-logs', $event)"
-      >
+      <router-link v-if="role === 'SUPERADMIN'" to="/admin/manage-logs" class="menu-item">
         日志管理
-      </div>
+      </router-link>
 
-      <div
-        class="menu-item"
-        @click="goTo('/shop', $event)"
-      >
+      <router-link to="/shop" class="menu-item">
         返回商店
-      </div>
+      </router-link>
 
     </div>
 
@@ -81,19 +67,8 @@ onMounted(async () => {
 })
 
 
-function goTo(path, event) {
-
-  highlightMenu(event)
-
-  router.push(path)
-
-}
-
-
 function logout() {
-
   adminLogout(router)
-
 }
 
 </script>

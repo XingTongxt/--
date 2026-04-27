@@ -1,89 +1,179 @@
-import { addToCartBackend } from './cart.js'; // 确保路径正确
+import { ref, onMounted, computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { addToCartBackend } from './cart.js'
 
-let qty = 1;
+export function useProductDetail() {
+  const route = useRoute()
+  const router = useRouter()
 
-// 渲染商品详情
-export function renderProductDetail(container, product) {
-  container.innerHTML = `
-    <div class="product-main">
-      <img src="${product.img}" alt="${product.name}" class="product-image">
-      <div class="product-info">
-          <h2>${product.name}</h2>
-          <p>${product.description}</p>
-          <div class="price">价格：¥${product.price}</div>
-          <div class="qty-selector">
-            <button class="decrease">-</button>
-            <span class="qty">1</span>
-            <button class="increase">+</button>
-          </div>
-          <button class="btn-add">加入购物车</button>
-      </div>
-    </div>
-  `;
-}
+  const product = ref(null)
+  const qty = ref(1)
+  const loading = ref(false)
 
-// 数量选择
-export function setupQuantity(container) {
-  qty = 1;
-  const decreaseBtn = container.querySelector('.decrease');
-  const increaseBtn = container.querySelector('.increase');
-  const qtySpan = container.querySelector('.qty');
+  const comments = ref([])
+  const commentContent = ref('')
+  const rating = ref(5)
+  const submitLoading = ref(false)
 
-  decreaseBtn.addEventListener('click', () => {
-    qty = Math.max(1, qty - 1);
-    qtySpan.textContent = qty;
-  });
+  const productId = Number(route.params.id)
 
-  increaseBtn.addEventListener('click', () => {
-    qty++;
-    qtySpan.textContent = qty;
-  });
-}
+  const avgRating = computed(() => {
+    if (comments.value.length === 0) return 0
+    return comments.value.reduce((sum, c) => sum + c.rating, 0) / comments.value.length
+  })
 
-export function setupAddCart(container, product, productId) {
-  const addBtn = container.querySelector('.btn-add');
-  addBtn.addEventListener('click', async () => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      alert('请先登录');
-      window.location.href = '/login';
-      return;
-    }
+  function increaseQty() {
+    qty.value++
+  }
 
+  function decreaseQty() {
+    if (qty.value > 1) qty.value--
+  }
+
+  async function fetchProduct() {
     try {
-      await addToCartBackend(productId, token, qty);
-      showToast(`${product.name} 已加入购物车`);
-    } catch (err) {
-      console.error(err);
-      alert('加入购物车失败');
+      const res = await fetch(`http://localhost:8080/api/products/${productId}`)
+      if (!res.ok) throw new Error()
+      product.value = await res.json()
+    } catch (e) {
+      showToast('获取商品失败')
     }
-  });
-}
+  }
 
-// toast 提示
-export function showToast(msg) {
-  const toast = document.createElement('div');
-  toast.className = 'toast';
-  toast.textContent = msg;
-  document.body.appendChild(toast);
-  requestAnimationFrame(() => toast.classList.add('show'));
+  async function addCart() {
+    const token = localStorage.getItem('token')
+    if (!token) {
+      showToast('请先登录')
+      router.push('/login')
+      return
+    }
+
+    loading.value = true
+    try {
+      await addToCartBackend(product.value.id, qty.value)
+      showToast('加入购物车成功')
+    } catch (e) {
+      showToast('加入失败')
+    } finally {
+      loading.value = false
+    }
+  }
+
+  async function loadComments() {
+    try {
+      const res = await fetch(`http://localhost:8080/api/comments/${productId}`)
+      if (!res.ok) throw new Error()
+      comments.value = await res.json()
+    } catch (e) {
+      showToast('评论加载失败')
+    }
+  }
+
+  function isMine(c) {
+    const username = localStorage.getItem('username')
+    return username && c.username === username
+  }
+
+  async function deleteComment(id) {
+    try {
+      const res = await fetch(`http://localhost:8080/api/comments/${id}`, {
+        method: 'DELETE',
+        headers: { Authorization: 'Bearer ' + localStorage.getItem('token') }
+      })
+      if (res.ok) {
+        showToast('删除成功')
+        loadComments()
+      } else {
+        showToast('删除失败')
+      }
+    } catch (e) {
+      showToast('网络错误')
+    }
+  }
+function showToast(msg) {
+  let toast = document.querySelector('.toast')
+
+  if (!toast) {
+    toast = document.createElement('div')
+    toast.className = 'toast'
+    document.body.appendChild(toast)
+  }
+
+  toast.textContent = msg
+  toast.classList.add('show')
+
   setTimeout(() => {
-    toast.classList.remove('show');
-    toast.addEventListener('transitionend', () => toast.remove());
-  }, 2000);
+    toast.classList.remove('show')
+  }, 2000)
 }
+  function formatTime(t) {
+    if (!t) return ''
+    return new Date(t.replace('T', ' ')).toLocaleString()
+  }
 
-// 随机背景
-export function setRandomBackground(container) {
-  const images = [
-      '../img/1.png',
-      '../img/2.jpg',
-      '../img/3.jpg',
-      '../img/4.jpg'
-  ];
-  const index = Math.floor(Math.random() * images.length);
-  container.style.transition = 'background-image 0.5s ease-in-out';
-  container.style.backgroundImage = `url(${images[index]})`;
-  container.style.backgroundSize = 'cover';
-  container.style.backgroundPosition = 'center';
+  async function submitComment() {
+    const token = localStorage.getItem('token')
+    if (!token) return showToast('请先登录')
+    if (!commentContent.value) return showToast('评论不能为空')
+
+    submitLoading.value = true
+    try {
+      const res = await fetch('http://localhost:8080/api/comments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token
+        },
+        body: JSON.stringify({
+          productId,
+          content: commentContent.value,
+          rating: rating.value
+        })
+      })
+
+      if (res.status === 401) {
+        showToast('登录过期')
+        localStorage.removeItem('token')
+        router.push('/login')
+        return
+      }
+
+      if (res.ok) {
+        showToast('评论成功')
+        commentContent.value = ''
+        loadComments()
+      } else {
+        showToast('评论失败')
+      }
+    } catch (e) {
+      showToast('网络错误')
+    } finally {
+      submitLoading.value = false
+    }
+  }
+
+  onMounted(() => {
+    fetchProduct()
+    loadComments()
+  })
+
+  return {
+    product,
+    qty,
+    loading,
+    comments,
+    commentContent,
+    rating,
+    submitLoading,
+    avgRating,
+    router,
+    increaseQty,
+    decreaseQty,
+    addCart,
+    loadComments,
+    isMine,
+    deleteComment,
+    formatTime,
+    submitComment
+  }
 }
