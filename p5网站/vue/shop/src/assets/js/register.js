@@ -1,6 +1,6 @@
-export async function registerUser(username, password, password2, router) {
+export async function registerUser(username, password, password2, email, router) {
 
-    if (!username || !password || !password2) {
+    if (!username || !password || !password2 || !email) {
         alert("请填写完整信息")
         return
     }
@@ -19,7 +19,8 @@ export async function registerUser(username, password, password2, router) {
             },
             body: JSON.stringify({
                 username,
-                password
+                password,
+                email
             })
         })
 

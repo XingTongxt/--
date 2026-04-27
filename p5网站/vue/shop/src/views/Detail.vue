@@ -5,18 +5,13 @@
       Persona 5 商店 - 商品详情
     </header>
 
-    <div class="detail-container" ref="container"></div>
-
-    <!-- 评论区 -->
+    <div class="detail-container" ref="container">
+    </div>
     <div class="comment-section">
-
       <h2>商品评论</h2>
-
       <div class="comment-list" ref="commentList"></div>
-
       <div class="comment-form">
         <textarea v-model="commentContent" placeholder="写下你的评价..."></textarea>
-
         <select v-model="rating">
           <option value="5">⭐⭐⭐⭐⭐</option>
           <option value="4">⭐⭐⭐⭐</option>
@@ -24,12 +19,9 @@
           <option value="2">⭐⭐</option>
           <option value="1">⭐</option>
         </select>
-
         <button @click="submitComment">发表评论</button>
       </div>
-
     </div>
-
   </div>
 </template>
 
@@ -44,7 +36,6 @@ const router = useRouter();
 const commentList = ref(null)
 const commentContent = ref("")
 const rating = ref(5)
-
 const productId = Number(route.params.id);
 async function fetchProduct(id) {
   try {
@@ -60,31 +51,21 @@ async function fetchProduct(id) {
 }
 
 onMounted(async () => {
-
   const product = await fetchProduct(productId)
-
   if (!product) {
-
     container.value.innerHTML = `
       <p>未找到该商品。
         <button id="back-to-shop">返回商城</button>
       </p>
     `
-
     const btn = container.value.querySelector('#back-to-shop')
-
     btn.addEventListener('click', () => router.push('/shop'))
 
   } else {
-
     renderProductDetail(container.value, product)
     setupQuantity(container.value)
     setupAddCart(container.value, product, product.id)
-
-
-    // 加载评论
     loadComments()
-
   }
 
 })
@@ -95,8 +76,6 @@ async function loadComments() {
     const comments = await res.json();
 
     renderComments(comments);
-
-    // 计算平均评分
     if (comments.length > 0) {
       const avg = comments.reduce((sum, c) => sum + c.rating, 0) / comments.length;
       renderAverageRating(avg);
@@ -112,18 +91,13 @@ async function loadComments() {
 
 function renderComments(comments) {
   if (!commentList.value) return;
-
   const currentUsername = localStorage.getItem("username");
-
   commentList.value.innerHTML = "";
-
   comments.forEach(c => {
     const div = document.createElement("div");
     div.className = "comment-item";
-
     const currentUsername = localStorage.getItem("username");
     const isMine = currentUsername && c.username === currentUsername;
-
     div.innerHTML = `
     <p class="comment-username">${c.username || "匿名"}</p>
     <p class="comment-rating">${"⭐".repeat(c.rating)}</p>
@@ -153,8 +127,6 @@ function renderComments(comments) {
 }
 function renderAverageRating(avg) {
   let avgContainer = document.querySelector('.average-rating');
-
-  // 如果不存在就创建
   if (!avgContainer) {
     avgContainer = document.createElement('div');
     avgContainer.className = 'average-rating';
@@ -201,17 +173,11 @@ async function submitComment() {
   })
 
   if (res.ok) {
-
     showToast("评论成功")
-
     commentContent.value = ""
-
     loadComments()
-
   } else {
-
     showToast("评论失败")
-
   }
 
 }

@@ -8,7 +8,6 @@ export async function initShop() {
   const cartIcon = document.querySelector('.cart-icon')
   const token = localStorage.getItem('token')
 
-  // 先获取角色
   await checkAdmin(token)
 
   try {
@@ -40,7 +39,6 @@ async function renderProducts(products) {
   if (!shopScrollContainer) return
   shopScrollContainer.innerHTML = ''
 
-  // 先获取所有商品的平均评分
   const productsWithRating = await Promise.all(products.map(async product => {
     try {
       const res = await fetch(`http://localhost:8080/api/comments/${product.id}`)
@@ -55,14 +53,12 @@ async function renderProducts(products) {
     }
   }))
 
-  // 按分类分组
   const categories = {}
   productsWithRating.forEach(product => {
     if (!categories[product.category]) categories[product.category] = []
     categories[product.category].push(product)
   })
 
-  // 渲染
   for (const category in categories) {
     const categoryDiv = document.createElement('div')
     categoryDiv.className = 'category-container'
@@ -86,7 +82,6 @@ async function renderProducts(products) {
         stockHtml = `<p class="product-stock">库存：${product.stock}</p>`
       }
 
-      // 生成星星
       const fullStars = Math.floor(product.avgRating)
       const halfStar = product.avgRating - fullStars >= 0.5 ? 1 : 0
       const emptyStars = 5 - fullStars - halfStar
@@ -260,7 +255,6 @@ export async function loadProductsByPriceAsc() {
   renderProducts(products)
 
 }
-
 export async function loadProductsByPriceDesc() {
 
   const res = await fetch("http://localhost:8080/api/products/priceDesc")
@@ -270,15 +264,11 @@ export async function loadProductsByPriceDesc() {
   renderProducts(products)
 
 }
-// 按评分排序
 export async function loadProductsByRating(desc = true) {
   try {
-    // 先获取所有商品
     const res = await fetch("http://localhost:8080/api/products")
     if (!res.ok) throw new Error("获取商品失败")
     const products = await res.json()
-
-    // 获取每个商品的平均评分
     const productsWithRating = await Promise.all(products.map(async product => {
       try {
         const res = await fetch(`http://localhost:8080/api/comments/${product.id}`)

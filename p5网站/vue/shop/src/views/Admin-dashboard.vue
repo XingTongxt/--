@@ -25,6 +25,7 @@
       </div>
 
       <div
+        v-if="role === 'SUPERADMIN'"
         class="menu-item"
         @click="goTo('/admin/manage-logs', $event)"
       >

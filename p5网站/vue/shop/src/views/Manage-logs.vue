@@ -16,7 +16,6 @@
         按用户名筛选:
         <input type="text" v-model="filterUser" placeholder="输入用户名">
       </label>
-
       <button @click="applyFilter">筛选</button>
       <button @click="loadLogs">刷新</button>
     </div>
