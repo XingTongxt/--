@@ -79,9 +79,9 @@ public class CartController {
 
         try {
 
-            Long productId = body.get("productId");
-
-            cartService.addToCart(user, productId);
+            Long productId = ((Number) body.get("productId")).longValue();
+            Integer quantity = ((Number) body.get("quantity")).intValue();
+            cartService.addToCart(user, productId, quantity);
 
             List<CartDTO> cartList = cartService.getCartWithProductInfo(user);
 

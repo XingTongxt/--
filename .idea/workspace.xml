@@ -4,20 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8567d5c2-0c11-4c28-a18e-37e12f6d6c85" name="更改" comment="feat(order): 添加订单管理和库存更新功能&#10;&#10;- 在AdminController中添加跨域注解并实现单独修改库存的API&#10;- 新增OrderController实现订单查询、发货、退货退款等完整流程&#10;- 扩展Order实体添加发货时间、退货退款状态字段&#10;- 更新CORS配置添加Vite开发服务器允许源&#10;- 在SecurityConfig中添加PATCH方法到允许的HTTP方法列表&#10;- 扩展OrderItemRepository和OrderRepository添加订单查询方法">
-      <change afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/service/PasswordEncoderInitializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/util/ApiResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/util/RegisterValidateUtil.java" afterDir="false" />
+    <list default="true" id="8567d5c2-0c11-4c28-a18e-37e12f6d6c85" name="更改" comment="feat(user): 完善用户注册登录和商品管理功能&#10;&#10;- 添加统一的 ApiResponse 工具类用于标准化响应格式&#10;- 实现用户注册时的邮箱和密码格式验证功能&#10;- 集成 BCrypt 密码加密和初始化密码迁移功能&#10;- 添加直接下单接口支持立即购买功能&#10;- 优化 JWT Token 解析和用户认证流程&#10;- 扩展商品管理功能包括删除商品和库存更新&#10;- 重构用户控制器返回标准格式响应数据&#10;- 添加注册参数校验工具类和邮箱格式验证&#10;- 优化购物车结算和直接订单的错误处理&#10;- 移除代码中的冗余注释和空行提升可读性">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/CartController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/CommentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/repository/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/repository/ProductRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/service/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/util/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/后端/src/main/java/com/guanyanliang/persona5/util/JwtUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,30 +67,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.Persona5Application.executor": "Run",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_directory_selection": "C:/Users/10078/IdeaProjects/persona5/后端/src/main/java/com/guanyanliang/persona5",
-    "last_opened_file_path": "C:/Users/10078/IdeaProjects/persona5",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "模块",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.Persona5Application.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_directory_selection&quot;: &quot;C:/Users/10078/IdeaProjects/persona5/后端/src/main/java/com/guanyanliang/persona5&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/10078/IdeaProjects/persona5&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\10078\IdeaProjects\persona5\后端" />
@@ -141,7 +129,7 @@
       <workItem from="1758863296630" duration="192000" />
       <workItem from="1758866207460" duration="27960000" />
       <workItem from="1759125761004" duration="7840000" />
-      <workItem from="1773323879894" duration="30993000" />
+      <workItem from="1773323879894" duration="31694000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <option name="closed" value="true" />
@@ -319,7 +307,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773340259231</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="feat(user): 完善用户注册登录和商品管理功能&#10;&#10;- 添加统一的 ApiResponse 工具类用于标准化响应格式&#10;- 实现用户注册时的邮箱和密码格式验证功能&#10;- 集成 BCrypt 密码加密和初始化密码迁移功能&#10;- 添加直接下单接口支持立即购买功能&#10;- 优化 JWT Token 解析和用户认证流程&#10;- 扩展商品管理功能包括删除商品和库存更新&#10;- 重构用户控制器返回标准格式响应数据&#10;- 添加注册参数校验工具类和邮箱格式验证&#10;- 优化购物车结算和直接订单的错误处理&#10;- 移除代码中的冗余注释和空行提升可读性">
+      <option name="closed" value="true" />
+      <created>1773439408389</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1773439408390</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -346,7 +342,8 @@
     <MESSAGE value="feat(product): 添加商品库存管理和评论功能&#10;&#10;- 在JWT token中添加用户ID信息用于身份识别&#10;- 实现商品库存字段和销量统计功能&#10;- 在购物车结算时添加库存检查和扣减逻辑&#10;- 创建Comment实体和相关控制器实现评论功能&#10;- 添加商品按销量和价格排序的API接口&#10;- 实现商品购买业务逻辑的服务层方法" />
     <MESSAGE value="Merge remote-tracking branch 'origin/main'" />
     <MESSAGE value="feat(order): 添加订单管理和库存更新功能&#10;&#10;- 在AdminController中添加跨域注解并实现单独修改库存的API&#10;- 新增OrderController实现订单查询、发货、退货退款等完整流程&#10;- 扩展Order实体添加发货时间、退货退款状态字段&#10;- 更新CORS配置添加Vite开发服务器允许源&#10;- 在SecurityConfig中添加PATCH方法到允许的HTTP方法列表&#10;- 扩展OrderItemRepository和OrderRepository添加订单查询方法" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(order): 添加订单管理和库存更新功能&#10;&#10;- 在AdminController中添加跨域注解并实现单独修改库存的API&#10;- 新增OrderController实现订单查询、发货、退货退款等完整流程&#10;- 扩展Order实体添加发货时间、退货退款状态字段&#10;- 更新CORS配置添加Vite开发服务器允许源&#10;- 在SecurityConfig中添加PATCH方法到允许的HTTP方法列表&#10;- 扩展OrderItemRepository和OrderRepository添加订单查询方法" />
+    <MESSAGE value="feat(user): 完善用户注册登录和商品管理功能&#10;&#10;- 添加统一的 ApiResponse 工具类用于标准化响应格式&#10;- 实现用户注册时的邮箱和密码格式验证功能&#10;- 集成 BCrypt 密码加密和初始化密码迁移功能&#10;- 添加直接下单接口支持立即购买功能&#10;- 优化 JWT Token 解析和用户认证流程&#10;- 扩展商品管理功能包括删除商品和库存更新&#10;- 重构用户控制器返回标准格式响应数据&#10;- 添加注册参数校验工具类和邮箱格式验证&#10;- 优化购物车结算和直接订单的错误处理&#10;- 移除代码中的冗余注释和空行提升可读性" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(user): 完善用户注册登录和商品管理功能&#10;&#10;- 添加统一的 ApiResponse 工具类用于标准化响应格式&#10;- 实现用户注册时的邮箱和密码格式验证功能&#10;- 集成 BCrypt 密码加密和初始化密码迁移功能&#10;- 添加直接下单接口支持立即购买功能&#10;- 优化 JWT Token 解析和用户认证流程&#10;- 扩展商品管理功能包括删除商品和库存更新&#10;- 重构用户控制器返回标准格式响应数据&#10;- 添加注册参数校验工具类和邮箱格式验证&#10;- 优化购物车结算和直接订单的错误处理&#10;- 移除代码中的冗余注释和空行提升可读性" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
