@@ -46,7 +46,12 @@ public class CartService {
     }
 
     // 添加商品到购物车
-    public Cart addToCart(User user, Long productId) {
+    public Cart addToCart(User user, Long productId, Integer quantity) {
+
+        // 参数校验
+        if (quantity == null || quantity <= 0) {
+            quantity = 1;
+        }
         Cart cartItem = cartRepository.findByUserAndProductId(user, productId)
                 .orElseGet(() -> {
                     Cart c = new Cart();
@@ -55,10 +60,9 @@ public class CartService {
                     c.setQuantity(0);
                     return c;
                 });
-        cartItem.setQuantity(cartItem.getQuantity() + 1);
+        cartItem.setQuantity(cartItem.getQuantity() + quantity);
         return cartRepository.save(cartItem);
     }
-
     // 修改购物车数量
     public Cart updateQuantity(User user, Long productId, Integer quantity) {
         Cart cartItem = cartRepository.findByUserAndProductId(user, productId)
